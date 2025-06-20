@@ -1,0 +1,44 @@
+﻿<UserControl x:Class="iRacingTelemetryTool.MVVM.Views.OverlaySettingsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             
+             xmlns:vm="clr-namespace:iRacingTelemetryTool.MVVM.ViewModels"
+             mc:Ignorable="d" 
+             
+             d:DataContext="{d:DesignInstance Type=vm:OverlayViewModel, IsDesignTimeCreatable=True}"
+             
+             d:DesignHeight="450" d:DesignWidth="800">
+    
+    <!-- A simple layout panel to organize the controls -->
+    <StackPanel Margin="20">
+        <TextBlock Text="Overlay Controls" FontSize="24" FontWeight="Bold" Margin="0,0,0,20"/>
+        
+        <TextBlock Text="This panel will contain all the settings to customize your overlay." 
+                   TextWrapping="Wrap" 
+                   Margin="0,0,0,20"/>
+
+        <StackPanel Orientation="Horizontal">
+            
+            <!-- Button is bound to the ShowOverlayCommand in OverlayViewModel -->
+            <Button Content="Start/Show Overlay" 
+                    Command="{Binding ShowOverlayCommand}"
+                    Width="150" 
+                    Height="30" 
+                    Margin="5"/>
+
+            <!-- Button is bound to the HideOverlayCommand in OverlayViewModel -->
+            <Button Content="Stop/Hide Overlay" 
+                    Command="{Binding HideOverlayCommand}"
+                    Width="150" 
+                    Height="30" 
+                    Margin="5"/>
+
+        </StackPanel>
+
+        <!--  add more controls later -->
+
+        
+    </StackPanel>
+</UserControl>
