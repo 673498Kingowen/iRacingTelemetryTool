@@ -1,17 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "T6Wos1me7zk=",
+  "dgSpecHash": "8q3y2kYHWjU=",
   "success": true,
   "projectFilePath": "C:\\Users\\owen0\\Documents\\iRacingTelemetryTool\\IracingTelemetry\\IracingTelemetry.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\owen0\\.nuget\\packages\\communitytoolkit.mvvm\\8.4.0\\communitytoolkit.mvvm.8.4.0.nupkg.sha512",
     "C:\\Users\\owen0\\.nuget\\packages\\iracingsdk\\1.18.6\\iracingsdk.1.18.6.nupkg.sha512",
-    "C:\\Users\\owen0\\.nuget\\packages\\irsdksharp\\0.9.0\\irsdksharp.0.9.0.nupkg.sha512",
     "C:\\Users\\owen0\\.nuget\\packages\\irsdksharper\\1.1.4\\irsdksharper.1.1.4.nupkg.sha512",
-    "C:\\Users\\owen0\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\5.0.0\\microsoft.extensions.logging.abstractions.5.0.0.nupkg.sha512",
-    "C:\\Users\\owen0\\.nuget\\packages\\microsoft.netcore.platforms\\5.0.0\\microsoft.netcore.platforms.5.0.0.nupkg.sha512",
-    "C:\\Users\\owen0\\.nuget\\packages\\microsoft.win32.systemevents\\5.0.0\\microsoft.win32.systemevents.5.0.0.nupkg.sha512",
-    "C:\\Users\\owen0\\.nuget\\packages\\system.text.encoding.codepages\\5.0.0\\system.text.encoding.codepages.5.0.0.nupkg.sha512",
     "C:\\Users\\owen0\\.nuget\\packages\\yamldotnet\\16.3.0\\yamldotnet.16.3.0.nupkg.sha512"
   ],
   "logs": [
