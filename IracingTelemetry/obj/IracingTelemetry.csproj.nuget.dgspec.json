@@ -1,7 +1,7 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\owen0\\RiderProjects\\IracingTelemetry\\IracingTelemetry\\IracingTelemetry.csproj": {}
+    "C:\\Users\\owen0\\Documents\\iRacingTelemetryTool\\IracingTelemetry\\IracingTelemetry.csproj": {}
   },
   "projects": {
     "C:\\Users\\owen0\\Documents\\iRacingSdkWrapper\\iRacingSdkWrapper\\iRacingSdkWrapper.csproj": {
@@ -20,14 +20,14 @@
         "net451": {}
       }
     },
-    "C:\\Users\\owen0\\RiderProjects\\IracingTelemetry\\IracingTelemetry\\IracingTelemetry.csproj": {
+    "C:\\Users\\owen0\\Documents\\iRacingTelemetryTool\\IracingTelemetry\\IracingTelemetry.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\owen0\\RiderProjects\\IracingTelemetry\\IracingTelemetry\\IracingTelemetry.csproj",
+        "projectUniqueName": "C:\\Users\\owen0\\Documents\\iRacingTelemetryTool\\IracingTelemetry\\IracingTelemetry.csproj",
         "projectName": "IracingTelemetry",
-        "projectPath": "C:\\Users\\owen0\\RiderProjects\\IracingTelemetry\\IracingTelemetry\\IracingTelemetry.csproj",
+        "projectPath": "C:\\Users\\owen0\\Documents\\iRacingTelemetryTool\\IracingTelemetry\\IracingTelemetry.csproj",
         "packagesPath": "C:\\Users\\owen0\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\owen0\\RiderProjects\\IracingTelemetry\\IracingTelemetry\\obj\\",
+        "outputPath": "C:\\Users\\owen0\\Documents\\iRacingTelemetryTool\\IracingTelemetry\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\owen0\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -68,9 +68,25 @@
               "target": "Package",
               "version": "[8.4.0, )"
             },
+            "IRSDKSharper": {
+              "target": "Package",
+              "version": "[1.1.4, )"
+            },
+            "YamlDotNet": {
+              "target": "Package",
+              "version": "[16.3.0, )"
+            },
+            "YamlDotNet.NetCore": {
+              "target": "Package",
+              "version": "[1.0.0, )"
+            },
             "iRacingSDK": {
               "target": "Package",
               "version": "[1.18.6, )"
+            },
+            "irsdkSharp": {
+              "target": "Package",
+              "version": "[0.9.0, )"
             }
           },
           "imports": [
