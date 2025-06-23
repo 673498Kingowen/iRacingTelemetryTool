@@ -72,14 +72,6 @@
               "target": "Package",
               "version": "[1.1.4, )"
             },
-            "YamlDotNet": {
-              "target": "Package",
-              "version": "[16.3.0, )"
-            },
-            "YamlDotNet.NetCore": {
-              "target": "Package",
-              "version": "[1.0.0, )"
-            },
             "iRacingSDK": {
               "target": "Package",
               "version": "[1.18.6, )"

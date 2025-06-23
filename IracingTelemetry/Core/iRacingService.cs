@@ -18,7 +18,6 @@ namespace iRacingTelemetryTool.Core
         {
             // 1. Instantiate the wrapper.
             _wrapper = new SdkWrapper();
-            // Set how often you want telemetry updates per second.
             _wrapper.TelemetryUpdateFrequency = 60;
 
             // 2. Subscribe to the events.
@@ -47,19 +46,19 @@ namespace iRacingTelemetryTool.Core
         }
 
         // 4. Handle the "Connected" event.
-        private void OnConnected(object sender, EventArgs e)
+        private void OnConnected(object? sender, EventArgs e)
         {
             Log("Successfully connected to iRacing! Waiting for data...");
         }
 
         // 5. Handle the "Disconnected" event.
-        private void OnDisconnected(object sender, EventArgs e)
+        private void OnDisconnected(object? sender, EventArgs e)
         {
             Log("Disconnected from iRacing.");
         }
 
         // 6. Handle new telemetry data when it arrives.
-        private void OnTelemetryUpdated(object sender, SdkWrapper.TelemetryUpdatedEventArgs e)
+        private void OnTelemetryUpdated(object? sender, SdkWrapper.TelemetryUpdatedEventArgs e)
         {
             // The e.TelemetryInfo object contains all the live data.
             DisplayTelemetry(e.TelemetryInfo);

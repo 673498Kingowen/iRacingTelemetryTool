@@ -1,14 +1,13 @@
-﻿using System.Diagnostics;
+﻿using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.IO;
 using System.Windows;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using iRacingSdkWrapper;
+using iRacingSDK;
 using iRacingTelemetryTool.Core;
 using iRacingTelemetryTool.MVVM.Views;
-namespace iRacingTelemetryTool.MVVM.ViewModels;
-using CommunityToolkit.Mvvm.ComponentModel;
-using iRacingSDK;
-using System.Collections.ObjectModel;
+namespace IracingTelemetry.MVVM.ViewModels;
 
 public partial class OverlayViewModel : ObservableObject {
     public ObservableCollection<DriveInfo> DriverStandings { get; } = new();

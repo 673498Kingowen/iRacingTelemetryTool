@@ -7,9 +7,9 @@ public partial class MainViewModel : ObservableObject{
     /// <summary>
     /// Overlay tabs.
     /// </summary>
-    public OverlayViewModel OverlayVM { get; }
+    public IracingTelemetry.MVVM.ViewModels.OverlayViewModel OverlayVM { get; }
     
     public MainViewModel(iRacingService iRacingService) {
-        OverlayVM = new OverlayViewModel(iRacingService);
+        OverlayVM = new IracingTelemetry.MVVM.ViewModels.OverlayViewModel(iRacingService);
     }
 }
