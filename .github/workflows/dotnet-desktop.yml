@@ -54,8 +54,8 @@ jobs:
                              # https://help.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idruns-on
   
     env:
-      Solution_Name: iRacingTelemetryTool.sln  # Replace with your solution name.
-      Project_Path: IracingTelemetry/IracingTelemetry.csproj             
+      Solution_Name: iracingTelemetry.sln  # Replace with your solution name.
+      Project_Path: iRacingTelemetryTool/IracingTelemetry/IracingTelemetry.csproj             
 
     steps:
     - name: Checkout repository
