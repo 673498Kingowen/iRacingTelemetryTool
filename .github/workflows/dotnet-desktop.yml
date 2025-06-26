@@ -57,7 +57,7 @@ jobs:
   
     env:
       Solution_Name: iRacingTelemetryTool.sln  # Replace with your solution name.
-      Project_Path: IracingTelemetry/IracingTelemetry.csproj             
+      Project_Path: iRacingTelemetryTool/IracingTelemetry.csproj             
 
     steps:
     - name: Checkout
@@ -69,7 +69,7 @@ jobs:
       run: git submodule update --init --recursive
 
     - name: Build
-      run: dotnet build src/iRacingTelemetryTool.sln --configuration Release
+      run: dotnet build IracingTelemetry.sln --configuration Release
 
     # Install the .NET Core workload
     - name: Install .NET Core
