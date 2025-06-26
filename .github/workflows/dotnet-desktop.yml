@@ -69,17 +69,7 @@ jobs:
     - name: Install .NET Framework 4.5.1 Developer Pack
       run: | 
         choco install netfx-4.5.1-devpack --no-progress
-
-    - name: Build
-      run: dotnet build iRacingTelemetryTool/IracingTelemetry.sln --configuration Release
-
-    - name: Upload build artifacts
-      uses: actions/upload-artifact@v4
-      with:
-        name: Build-output-${{ matrix.configuration }}
-        # Update this path to where your build output is actually located
-        path: iRacingTelemetryTool/IracingTelemetry/bin/${{ matrix.configuration }}/
-
+        
     # Install the .NET Core workload
     - name: Install .NET Core
       uses: actions/setup-dotnet@v4
