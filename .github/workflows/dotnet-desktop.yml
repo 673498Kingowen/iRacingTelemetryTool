@@ -68,6 +68,9 @@ jobs:
     - name: Checkout submodules
       run: git submodule update --init --recursive
 
+    - name: Build
+      run: dotnet build src/iRacingTelemetryTool.sln --configuration Release
+
     # Install the .NET Core workload
     - name: Install .NET Core
       uses: actions/setup-dotnet@v4
