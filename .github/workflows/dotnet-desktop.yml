@@ -82,17 +82,6 @@ jobs:
     # Execute all unit tests in the solution
     - name: Execute unit tests
       run: dotnet test
-
-    - name: Restore the application
-      run: |
-        call "%ProgramFiles(x86)%\Microsoft Visual Studio\2022\Enterprise\Common7\Tools\VsDevCmd.bat"
-        msbuild $env:Solution_Name /t:Restore /p:Configuration=$env:Configuration
-      env:
-        Configuration: ${{ matrix.configuration }}
-        
-    # Build the application
-    - name: Build the application
-      run: dotnet build $env:Solution_Name --configuration ${{ matrix.configuration }} --no-restore
     
     # Upload the build artifacts
     - name: Upload build artifacts
