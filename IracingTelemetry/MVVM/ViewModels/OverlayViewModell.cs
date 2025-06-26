@@ -5,21 +5,21 @@ using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using iRacingSDK;
-using iRacingTelemetryTool.Core;
+using IracingTelemetry.Core;
 using iRacingTelemetryTool.MVVM.Views;
 namespace IracingTelemetry.MVVM.ViewModels;
 
 public partial class OverlayViewModel : ObservableObject {
     public ObservableCollection<DriveInfo> DriverStandings { get; } = new();
 
-    private OverlayWindow _overlayWindow;
-    private readonly iRacingService _iRacingService;
+    private OverlayWindow? _overlayWindow;
+    private readonly RacingService _iRacingService;
 
     [ObservableProperty] private int _speed;
 
     [ObservableProperty] private int _gear;
 
-    public OverlayViewModel(iRacingService iRacingService) {
+    public OverlayViewModel(RacingService iRacingService) {
         _iRacingService = iRacingService ?? throw new ArgumentNullException(nameof(iRacingService));
         ShowOverlayCommand = new RelayCommand(ShowOverlay);
     }
@@ -41,16 +41,17 @@ public partial class OverlayViewModel : ObservableObject {
     }
 
     public IRelayCommand ShowOverlayCommand { get; }
-    
-    public void ShowOverlay() {
+
+    private void ShowOverlay() {
 
         try {
-            if (_overlayWindow == null || !_overlayWindow.IsVisible) {
-                _overlayWindow = new OverlayWindow();
-                _overlayWindow.DataContext = this;
+            if (_overlayWindow is { IsVisible: false }) {
+                _overlayWindow = new OverlayWindow {
+                    DataContext = this
+                };
             }
 
-            _overlayWindow.Show();
+            _overlayWindow?.Show();
         }
         catch (Exception e) {
             Debug.WriteLine($"Error showing overlay: {e.Message}");
@@ -59,7 +60,7 @@ public partial class OverlayViewModel : ObservableObject {
 
     [RelayCommand]
     private void HideOverlay() {
-        if (_overlayWindow.IsVisible) {
+        if (_overlayWindow is { IsVisible: true }) {
             _overlayWindow.Close();
         }
     }

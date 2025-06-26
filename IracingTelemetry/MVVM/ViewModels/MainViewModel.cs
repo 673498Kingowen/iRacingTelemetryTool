@@ -1,15 +1,15 @@
-﻿namespace iRacingTelemetryTool.MVVM.ViewModels;
-using CommunityToolkit.Mvvm.ComponentModel;
-using iRacingTelemetryTool.Core;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using IracingTelemetry.Core;
+namespace IracingTelemetry.MVVM.ViewModels;
 
-public partial class MainViewModel : ObservableObject{
+public partial class MainViewModel(RacingService iRacingService) : ObservableObject {
     
     /// <summary>
     /// Overlay tabs.
     /// </summary>
-    public IracingTelemetry.MVVM.ViewModels.OverlayViewModel OverlayVM { get; }
-    
-    public MainViewModel(iRacingService iRacingService) {
-        OverlayVM = new IracingTelemetry.MVVM.ViewModels.OverlayViewModel(iRacingService);
-    }
+    public IracingTelemetry.MVVM.ViewModels.OverlayViewModel OverlayVm { get; } = new(iRacingService) {
+        Speed = 0,
+        Gear = 0
+    };
+
 }

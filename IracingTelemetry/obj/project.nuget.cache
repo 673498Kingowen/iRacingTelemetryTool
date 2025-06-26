@@ -1,21 +1,22 @@
 {
   "version": 2,
-  "dgSpecHash": "c3meSgwe6yY=",
+  "dgSpecHash": "JUS/CpAxLkI=",
   "success": true,
-  "projectFilePath": "C:\\Users\\Owen\\Documents\\iRacingTelemetryTool\\IracingTelemetry\\IracingTelemetry.csproj",
+  "projectFilePath": "C:\\Users\\owen0\\Documents\\iRacingTelemetryTool\\IracingTelemetry\\IracingTelemetry.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\Owen\\.nuget\\packages\\iracingsdk\\1.18.6\\iracingsdk.1.18.6.nupkg.sha512",
-    "C:\\Users\\Owen\\.nuget\\packages\\irsdksharper\\1.1.4\\irsdksharper.1.1.4.nupkg.sha512",
-    "C:\\Users\\Owen\\.nuget\\packages\\yamldotnet\\16.3.0\\yamldotnet.16.3.0.nupkg.sha512"
+    "C:\\Users\\owen0\\.nuget\\packages\\communitytoolkit.mvvm\\8.4.0\\communitytoolkit.mvvm.8.4.0.nupkg.sha512",
+    "C:\\Users\\owen0\\.nuget\\packages\\iracingsdk\\1.18.6\\iracingsdk.1.18.6.nupkg.sha512",
+    "C:\\Users\\owen0\\.nuget\\packages\\irsdksharper\\1.1.4\\irsdksharper.1.1.4.nupkg.sha512",
+    "C:\\Users\\owen0\\.nuget\\packages\\yamldotnet\\16.3.0\\yamldotnet.16.3.0.nupkg.sha512"
   ],
   "logs": [
     {
       "code": "NU1701",
       "level": "Warning",
       "message": "Package 'iRacingSDK 1.18.6' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net9.0-windows7.0'. This package may not be fully compatible with your project.",
-      "projectPath": "C:\\Users\\Owen\\Documents\\iRacingTelemetryTool\\IracingTelemetry\\IracingTelemetry.csproj",
+      "projectPath": "C:\\Users\\owen0\\Documents\\iRacingTelemetryTool\\IracingTelemetry\\IracingTelemetry.csproj",
       "warningLevel": 1,
-      "filePath": "C:\\Users\\Owen\\Documents\\iRacingTelemetryTool\\IracingTelemetry\\IracingTelemetry.csproj",
+      "filePath": "C:\\Users\\owen0\\Documents\\iRacingTelemetryTool\\IracingTelemetry\\IracingTelemetry.csproj",
       "libraryId": "iRacingSDK",
       "targetGraphs": [
         "net9.0-windows7.0"

@@ -1,23 +1,19 @@
-﻿using System;
-using System.Diagnostics;
-using System.Threading;
+﻿using System.Diagnostics;
 using iRacingSdkWrapper;
-
-namespace iRacingTelemetryTool.Core
+namespace IracingTelemetry.Core
 {
-    public class iRacingService
+    public class RacingService
     {
-        private readonly SdkWrapper _wrapper;
+        private readonly SdkWrapper _wrapper = new();
 
-        public event Action<TelemetryInfo> TelemetryUpdated;
-        public event Action<string> ConnectionStatusChanged;
+        public event Action<TelemetryInfo> TelemetryUpdated = null!;
+        public event Action<string> ConnectionStatusChanged = null!;
 
         public bool IsConnected => _wrapper.IsConnected;
 
-        public iRacingService()
+        public RacingService()
         {
             // 1. Instantiate the wrapper.
-            _wrapper = new SdkWrapper();
             _wrapper.TelemetryUpdateFrequency = 60;
 
             // 2. Subscribe to the events.
@@ -62,7 +58,7 @@ namespace iRacingTelemetryTool.Core
         {
             // The e.TelemetryInfo object contains all the live data.
             DisplayTelemetry(e.TelemetryInfo);
-            TelemetryUpdated?.Invoke(e.TelemetryInfo);
+            TelemetryUpdated(e.TelemetryInfo);
         }
         
         // Helper method to display telemetry data.
@@ -94,7 +90,7 @@ namespace iRacingTelemetryTool.Core
         private void Log(string message)
         {
             Console.WriteLine(message);
-            ConnectionStatusChanged?.Invoke(message);
+            ConnectionStatusChanged(message);
         }
         
         // Helper method to check if iRacing is running.
