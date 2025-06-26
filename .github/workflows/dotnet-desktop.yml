@@ -55,7 +55,7 @@ jobs:
   
     env:
       Solution_Name: iRacingTelemetryTool.sln  # Replace with your solution name.
-      Project_Path: iRacingTelemetryTool/IracingTelemetry.csproj             
+      Project_Path: IracingTelemetry/IracingTelemetry.csproj             
 
     steps:
     - name: Checkout repository
