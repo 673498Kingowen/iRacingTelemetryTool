@@ -17,13 +17,14 @@
     <ItemGroup>
       <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
       <PackageReference Include="iRacingSDK" Version="1.18.6" />
-      <PackageReference Include="irsdkSharp" Version="0.9.0" />
       <PackageReference Include="IRSDKSharper" Version="1.1.4" />
       <PackageReference Include="YamlDotNet" Version="16.3.0" />
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="libs\" />
+      <Reference Include="YamlDotNet">
+        <HintPath>..\packages\YamlDotNet.3.7.0\lib\net35\YamlDotNet.dll</HintPath>
+      </Reference>
     </ItemGroup>
 
 </Project>

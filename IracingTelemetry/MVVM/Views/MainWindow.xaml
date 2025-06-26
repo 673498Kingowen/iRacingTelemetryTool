@@ -11,7 +11,7 @@
     
     <Grid>
         <TabControl>
-            <TabItem Header="Overlay" DataContext="{Binding OverlayVM}">
+            <TabItem Header="Overlay" DataContext="{Binding OverlayVm}">
                 <views:OverlaySettingsView /> 
                 
             </TabItem>

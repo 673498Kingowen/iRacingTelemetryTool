@@ -203,10 +203,10 @@
       "CommunityToolkit.Mvvm >= 8.4.0",
       "IRSDKSharper >= 1.1.4",
       "YamlDotNet >= 16.3.0",
+      "iRSDKSharp >= 1.0.0",
       "iRacingSDK >= 1.18.6",
       "iRacingSdkWrapper >= 1.0.0",
-      "iRacingSimulator >= 1.0.0",
-      "irsdkSharp >= 0.9.0"
+      "iRacingSimulator >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -277,10 +277,6 @@
           "iRacingSDK": {
             "target": "Package",
             "version": "[1.18.6, )"
-          },
-          "irsdkSharp": {
-            "target": "Package",
-            "version": "[0.9.0, )"
           }
         },
         "imports": [
