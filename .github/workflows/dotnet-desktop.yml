@@ -69,7 +69,6 @@ jobs:
     - name: Install .NET Framework 4.5.1 Developer Pack
       run: | 
         choco install netfx-4.5.1-devpack --no-progress
-        <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
 
     - name: Build
       run: dotnet build iRacingTelemetryTool/IracingTelemetry.sln --configuration Release
