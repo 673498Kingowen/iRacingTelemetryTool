@@ -45,9 +45,7 @@ on:
     branches: [ "main" ]
 
 jobs:
-
   build:
-
     strategy:
       matrix:
         configuration: [Debug, Release]
@@ -60,7 +58,7 @@ jobs:
       Project_Path: iRacingTelemetryTool/IracingTelemetry.csproj             
 
     steps:
-    - name: Checkout
+    - name: Checkout repository
       uses: actions/checkout@v4
       with:
         fetch-depth: 0
@@ -71,10 +69,17 @@ jobs:
     - name: Install .NET Framework 4.5.1 Developer Pack
       run: | 
         choco install netfx-4.5.1-devpack --no-progress
-        <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+        <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
 
     - name: Build
-      run: dotnet build IracingTelemetry.sln --configuration Release
+      run: dotnet build iRacingTelemetryTool/IracingTelemetry.sln --configuration Release
+
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: Build-output-${{ matrix.configuration }}
+        # Update this path to where your build output is actually located
+        path: iRacingTelemetryTool/IracingTelemetry/bin/${{ matrix.configuration }}/
 
     # Install the .NET Core workload
     - name: Install .NET Core
