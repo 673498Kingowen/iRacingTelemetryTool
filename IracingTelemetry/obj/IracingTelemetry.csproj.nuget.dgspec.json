@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\owen0\\Documents\\iRacingTelemetryTool\\IracingTelemetry\\IracingTelemetry.csproj": {}
+    "C:\\Users\\Owen\\Documents\\iRacingTelemetryTool\\IracingTelemetry\\IracingTelemetry.csproj": {}
   },
   "projects": {
-    "C:\\Users\\owen0\\Documents\\iRacingTelemetryTool\\iRacingSdkWrapper\\iRacingSdkWrapper\\iRacingSdkWrapper.csproj": {
+    "C:\\Users\\Owen\\Documents\\iRacingTelemetryTool\\iRacingSdkWrapper\\iRacingSdkWrapper\\iRacingSdkWrapper.csproj": {
       "restore": {
-        "projectUniqueName": "C:\\Users\\owen0\\Documents\\iRacingTelemetryTool\\iRacingSdkWrapper\\iRacingSdkWrapper\\iRacingSdkWrapper.csproj",
+        "projectUniqueName": "C:\\Users\\Owen\\Documents\\iRacingTelemetryTool\\iRacingSdkWrapper\\iRacingSdkWrapper\\iRacingSdkWrapper.csproj",
         "projectName": "iRacingSdkWrapper",
-        "projectPath": "C:\\Users\\owen0\\Documents\\iRacingTelemetryTool\\iRacingSdkWrapper\\iRacingSdkWrapper\\iRacingSdkWrapper.csproj",
+        "projectPath": "C:\\Users\\Owen\\Documents\\iRacingTelemetryTool\\iRacingSdkWrapper\\iRacingSdkWrapper\\iRacingSdkWrapper.csproj",
         "UsingMicrosoftNETSdk": false,
         "frameworks": {
           "net451": {
             "projectReferences": {
-              "C:\\Users\\owen0\\Documents\\iRacingTelemetryTool\\iRacingSdkWrapper\\irsdkSharp\\iRSDKSharp.csproj": {
-                "projectPath": "C:\\Users\\owen0\\Documents\\iRacingTelemetryTool\\iRacingSdkWrapper\\irsdkSharp\\iRSDKSharp.csproj"
+              "C:\\Users\\Owen\\Documents\\iRacingTelemetryTool\\iRacingSdkWrapper\\irsdkSharp\\iRSDKSharp.csproj": {
+                "projectPath": "C:\\Users\\Owen\\Documents\\iRacingTelemetryTool\\iRacingSdkWrapper\\irsdkSharp\\iRSDKSharp.csproj"
               }
             }
           }
@@ -24,17 +24,17 @@
         "net451": {}
       }
     },
-    "C:\\Users\\owen0\\Documents\\iRacingTelemetryTool\\iRacingSdkWrapper\\iRacingSimulator\\iRacingSimulator.csproj": {
+    "C:\\Users\\Owen\\Documents\\iRacingTelemetryTool\\iRacingSdkWrapper\\iRacingSimulator\\iRacingSimulator.csproj": {
       "restore": {
-        "projectUniqueName": "C:\\Users\\owen0\\Documents\\iRacingTelemetryTool\\iRacingSdkWrapper\\iRacingSimulator\\iRacingSimulator.csproj",
+        "projectUniqueName": "C:\\Users\\Owen\\Documents\\iRacingTelemetryTool\\iRacingSdkWrapper\\iRacingSimulator\\iRacingSimulator.csproj",
         "projectName": "iRacingSimulator",
-        "projectPath": "C:\\Users\\owen0\\Documents\\iRacingTelemetryTool\\iRacingSdkWrapper\\iRacingSimulator\\iRacingSimulator.csproj",
+        "projectPath": "C:\\Users\\Owen\\Documents\\iRacingTelemetryTool\\iRacingSdkWrapper\\iRacingSimulator\\iRacingSimulator.csproj",
         "UsingMicrosoftNETSdk": false,
         "frameworks": {
           "net451": {
             "projectReferences": {
-              "C:\\Users\\owen0\\Documents\\iRacingTelemetryTool\\iRacingSdkWrapper\\iRacingSdkWrapper\\iRacingSdkWrapper.csproj": {
-                "projectPath": "C:\\Users\\owen0\\Documents\\iRacingTelemetryTool\\iRacingSdkWrapper\\iRacingSdkWrapper\\iRacingSdkWrapper.csproj"
+              "C:\\Users\\Owen\\Documents\\iRacingTelemetryTool\\iRacingSdkWrapper\\iRacingSdkWrapper\\iRacingSdkWrapper.csproj": {
+                "projectPath": "C:\\Users\\Owen\\Documents\\iRacingTelemetryTool\\iRacingSdkWrapper\\iRacingSdkWrapper\\iRacingSdkWrapper.csproj"
               }
             }
           }
@@ -44,11 +44,11 @@
         "net451": {}
       }
     },
-    "C:\\Users\\owen0\\Documents\\iRacingTelemetryTool\\iRacingSdkWrapper\\irsdkSharp\\iRSDKSharp.csproj": {
+    "C:\\Users\\Owen\\Documents\\iRacingTelemetryTool\\iRacingSdkWrapper\\irsdkSharp\\iRSDKSharp.csproj": {
       "restore": {
-        "projectUniqueName": "C:\\Users\\owen0\\Documents\\iRacingTelemetryTool\\iRacingSdkWrapper\\irsdkSharp\\iRSDKSharp.csproj",
+        "projectUniqueName": "C:\\Users\\Owen\\Documents\\iRacingTelemetryTool\\iRacingSdkWrapper\\irsdkSharp\\iRSDKSharp.csproj",
         "projectName": "iRSDKSharp",
-        "projectPath": "C:\\Users\\owen0\\Documents\\iRacingTelemetryTool\\iRacingSdkWrapper\\irsdkSharp\\iRSDKSharp.csproj",
+        "projectPath": "C:\\Users\\Owen\\Documents\\iRacingTelemetryTool\\iRacingSdkWrapper\\irsdkSharp\\iRSDKSharp.csproj",
         "UsingMicrosoftNETSdk": false,
         "frameworks": {
           "net451": {
@@ -60,36 +60,43 @@
         "net451": {}
       }
     },
-    "C:\\Users\\owen0\\Documents\\iRacingTelemetryTool\\IracingTelemetry\\IracingTelemetry.csproj": {
+    "C:\\Users\\Owen\\Documents\\iRacingTelemetryTool\\IracingTelemetry\\IracingTelemetry.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\owen0\\Documents\\iRacingTelemetryTool\\IracingTelemetry\\IracingTelemetry.csproj",
+        "projectUniqueName": "C:\\Users\\Owen\\Documents\\iRacingTelemetryTool\\IracingTelemetry\\IracingTelemetry.csproj",
         "projectName": "IracingTelemetry",
-        "projectPath": "C:\\Users\\owen0\\Documents\\iRacingTelemetryTool\\IracingTelemetry\\IracingTelemetry.csproj",
-        "packagesPath": "C:\\Users\\owen0\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\owen0\\Documents\\iRacingTelemetryTool\\IracingTelemetry\\obj\\",
+        "projectPath": "C:\\Users\\Owen\\Documents\\iRacingTelemetryTool\\IracingTelemetry\\IracingTelemetry.csproj",
+        "packagesPath": "C:\\Users\\Owen\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Owen\\Documents\\iRacingTelemetryTool\\IracingTelemetry\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\owen0\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\Owen\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net9.0-windows"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net9.0-windows7.0": {
             "targetAlias": "net9.0-windows",
             "projectReferences": {
-              "C:\\Users\\owen0\\Documents\\iRacingTelemetryTool\\iRacingSdkWrapper\\iRacingSdkWrapper\\iRacingSdkWrapper.csproj": {
-                "projectPath": "C:\\Users\\owen0\\Documents\\iRacingTelemetryTool\\iRacingSdkWrapper\\iRacingSdkWrapper\\iRacingSdkWrapper.csproj"
+              "C:\\Users\\Owen\\Documents\\iRacingTelemetryTool\\iRacingSdkWrapper\\iRacingSdkWrapper\\iRacingSdkWrapper.csproj": {
+                "projectPath": "C:\\Users\\Owen\\Documents\\iRacingTelemetryTool\\iRacingSdkWrapper\\iRacingSdkWrapper\\iRacingSdkWrapper.csproj"
               },
-              "C:\\Users\\owen0\\Documents\\iRacingTelemetryTool\\iRacingSdkWrapper\\iRacingSimulator\\iRacingSimulator.csproj": {
-                "projectPath": "C:\\Users\\owen0\\Documents\\iRacingTelemetryTool\\iRacingSdkWrapper\\iRacingSimulator\\iRacingSimulator.csproj"
+              "C:\\Users\\Owen\\Documents\\iRacingTelemetryTool\\iRacingSdkWrapper\\iRacingSimulator\\iRacingSimulator.csproj": {
+                "projectPath": "C:\\Users\\Owen\\Documents\\iRacingTelemetryTool\\iRacingSdkWrapper\\iRacingSimulator\\iRacingSimulator.csproj"
               },
-              "C:\\Users\\owen0\\Documents\\iRacingTelemetryTool\\iRacingSdkWrapper\\irsdkSharp\\iRSDKSharp.csproj": {
-                "projectPath": "C:\\Users\\owen0\\Documents\\iRacingTelemetryTool\\iRacingSdkWrapper\\irsdkSharp\\iRSDKSharp.csproj"
+              "C:\\Users\\Owen\\Documents\\iRacingTelemetryTool\\iRacingSdkWrapper\\irsdkSharp\\iRSDKSharp.csproj": {
+                "projectPath": "C:\\Users\\Owen\\Documents\\iRacingTelemetryTool\\iRacingSdkWrapper\\irsdkSharp\\iRSDKSharp.csproj"
               }
             }
           }
@@ -104,16 +111,12 @@
           "auditLevel": "low",
           "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "9.0.300"
+        "SdkAnalysisLevel": "9.0.200"
       },
       "frameworks": {
         "net9.0-windows7.0": {
           "targetAlias": "net9.0-windows",
           "dependencies": {
-            "CommunityToolkit.Mvvm": {
-              "target": "Package",
-              "version": "[8.4.0, )"
-            },
             "IRSDKSharper": {
               "target": "Package",
               "version": "[1.1.4, )"
@@ -150,7 +153,7 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.301/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.201/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

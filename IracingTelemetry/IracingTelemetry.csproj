@@ -15,7 +15,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
       <PackageReference Include="iRacingSDK" Version="1.18.6" />
       <PackageReference Include="irsdkSharp" Version="0.9.0" />
       <PackageReference Include="IRSDKSharper" Version="1.1.4" />
