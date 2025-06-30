@@ -1,11 +1,16 @@
-﻿namespace iRacingTelemetryTool.MVVM.Views;
+﻿using IracingTelemetry.Core;
+using IracingTelemetry.MVVM.ViewModels;
 
-/// <summary>
-/// Interaction logic for MainWindow.xaml
-/// </summary>
-public partial class MainWindow : System.Windows.Window
+namespace IracingTelemetry.MVVM.Views
 {
-    public MainWindow() {
-        InitializeComponent();
+    public partial class MainWindow : System.Windows.Window
+    {
+        public MainWindow() {
+            var racingService = new RacingService();
+            
+            DataContext = new MainViewModel(racingService);
+            
+            InitializeComponent();
+        }
     }
 }

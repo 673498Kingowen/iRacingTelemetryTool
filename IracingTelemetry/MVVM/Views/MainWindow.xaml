@@ -1,23 +1,176 @@
-﻿<Window x:Class="iRacingTelemetryTool.MVVM.Views.MainWindow"
+﻿<Window x:Class="IracingTelemetry.MVVM.Views.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:views="clr-namespace:iRacingTelemetryTool.MVVM.Views" 
-        
+        xmlns:local="clr-namespace:IracingTelemetry"
+        xmlns:views="clr-namespace:IracingTelemetry.MVVM.Views"
+        xmlns:viewModels="clr-namespace:IracingTelemetry.MVVM.ViewModels"
+        xmlns:views1="clr-namespace:IracingTelemetry.MVVM.Views"
         mc:Ignorable="d"
-        Title="iRacing Telemetry Tool - Overlay Tool" Height="600" Width="800"
-        WindowStartupLocation="CenterScreen">
+        Title="iRacing Telemetry Overlay" 
+        Height="650" Width="950"
+        WindowStartupLocation="CenterScreen"
+        Background="#1E1E1E"
+        FontFamily="Segoe UI"
+        ResizeMode="CanResize"
+        Icon="/Resources/iracing-seeklogo.png">
+    
+    <Window.Resources>
+        <Style x:Key="RacingButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="#0078D7"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Padding" Value="15,8"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="3">
+                            <ContentPresenter HorizontalAlignment="Center" 
+                                              VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#005FB3"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="#004C8C"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        
+        <Style TargetType="TabItem">
+            <Setter Property="Foreground" Value="#CCCCCC"/>
+            <Setter Property="Padding" Value="15,8"/>
+            <Setter Property="HeaderTemplate">
+                <Setter.Value>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding}" FontSize="14" FontWeight="Medium"/>
+                    </DataTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TabItem">
+                        <Border x:Name="TabBorder"
+                                Background="{TemplateBinding Background}"
+                                BorderThickness="0"
+                                CornerRadius="3,3,0,0"
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter ContentSource="Header"
+                                              HorizontalAlignment="Center"
+                                              VerticalAlignment="Center" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="Background" Value="#1E1E1E"/> <Setter Property="Foreground" Value="White"/>
+                </Trigger>
+                <Trigger Property="IsSelected" Value="False">
+                    <Setter Property="Background" Value="#252525"/> <Setter Property="Foreground" Value="#CCCCCC"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        
+        <Style TargetType="TabControl">
+            <Setter Property="Background" Value="#252525"/>
+            <Setter Property="BorderThickness" Value="0"/>
+        </Style>
+    </Window.Resources>
     
     <Grid>
-        <TabControl>
-            <TabItem Header="Overlay" DataContext="{Binding OverlayVm}">
-                <views:OverlaySettingsView /> 
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        
+        <Border Grid.Row="0" Background="#121212" Padding="15">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
                 
-            </TabItem>
-            <TabItem Header="Telemetry Analysis">
+                <StackPanel Grid.Column="0" Orientation="Horizontal">
+                    <TextBlock Text="iRacing" Foreground="#0078D7" FontSize="24" FontWeight="Bold"/>
+                    <TextBlock Text="Telemetry" Foreground="#CCCCCC" FontSize="24" Margin="5,0,0,0"/>
+                </StackPanel>
+                
+                <StackPanel Grid.Column="2" Orientation="Horizontal">
+                    <Ellipse x:Name="ConnectionStatus" Width="12" Height="12" Fill="Red" Margin="0,0,8,0" VerticalAlignment="Center"/>
+                    <TextBlock x:Name="ConnectionStatusText" Text="Disconnected" Foreground="#CCCCCC" VerticalAlignment="Center"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+        
+        <TabControl Grid.Row="1" Margin="0,2,0,0">
+            <TabItem Header="Overlay" DataContext="{Binding OverlayVm}">
+                <Border Background="#1E1E1E">
+                    <views:OverlaySettingsView />
+                </Border>
             </TabItem>
             
+            <TabItem Header="Telemetry Analysis">
+                <Grid Background="#1E1E1E">
+                    <TextBlock Text="Telemetry Analysis Features Coming Soon" 
+                               Foreground="#CCCCCC" 
+                               FontSize="18"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"/>
+                </Grid>
+            </TabItem>
+            
+            <TabItem Header="Settings">
+                <Border Background="#1E1E1E" Padding="20">
+                    <Grid>
+                    <StackPanel>
+                        <TextBlock Text="Application Settings" FontSize="20" Foreground="White" Margin="0,0,0,20"/>
+                        
+                        <TextBlock Text="Overlay Opacity" Foreground="#CCCCCC" Margin="0,10,0,5"/>
+                        <Slider Minimum="0.1" Maximum="1.0" Value="0.8" TickFrequency="0.1" IsSnapToTickEnabled="True" Width="300" HorizontalAlignment="Left"/>
+                        
+                        <TextBlock Text="Refresh Rate (Hz)" Foreground="#CCCCCC" Margin="0,20,0,5"/>
+                        <ComboBox Width="100" HorizontalAlignment="Left" SelectedIndex="2">
+                            <ComboBoxItem>30</ComboBoxItem>
+                            <ComboBoxItem>45</ComboBoxItem>
+                            <ComboBoxItem>60</ComboBoxItem>
+                            <ComboBoxItem>120</ComboBoxItem>
+                        </ComboBox>
+                        
+                        <TextBlock Text="Units" Foreground="#CCCCCC" Margin="0,20,0,5"/>
+                        <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+                            <RadioButton Content="Metric (km/h)" Foreground="#CCCCCC" IsChecked="True" Margin="0,0,20,0"/>
+                            <RadioButton Content="Imperial (mph)" Foreground="#CCCCCC"/>
+                        </StackPanel>
+                        
+                        <Button Content="Save Settings" Style="{StaticResource RacingButtonStyle}" Margin="0,30,0,0" Width="150" HorizontalAlignment="Left"/>
+                    </StackPanel>
+                    </Grid>
+                </Border>
+            </TabItem>
         </TabControl>
+        
+        <Border Grid.Row="2" Background="#121212" Padding="10">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                
+                <TextBlock Grid.Column="0" Text="Ready" Foreground="#999999" VerticalAlignment="Center"/>
+                <Button Grid.Column="1" Content="Start iRacing Connection" Style="{StaticResource RacingButtonStyle}"/>
+            </Grid>
+        </Border>
     </Grid>
 </Window>

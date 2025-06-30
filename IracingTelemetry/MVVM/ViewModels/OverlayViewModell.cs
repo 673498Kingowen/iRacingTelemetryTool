@@ -1,67 +1,150 @@
-﻿using System.Collections.ObjectModel;
-using System.Diagnostics;
-using System.IO;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using iRacingSDK;
 using IracingTelemetry.Core;
-using iRacingTelemetryTool.MVVM.Views;
-namespace IracingTelemetry.MVVM.ViewModels;
+using IracingTelemetry.MVVM.Views;
+using iRacingSdkWrapper;
+using IracingTelemetry.MVVM.Models;
 
-public partial class OverlayViewModel : ObservableObject {
-    public ObservableCollection<DriveInfo> DriverStandings { get; } = new();
+namespace IracingTelemetry.MVVM.ViewModels
+{
+    public partial class OverlayViewModel : ObservableObject
+    {
+        private readonly RacingService _racingService;
+        private OverlayWindow? _overlayWindow;
 
-    private OverlayWindow? _overlayWindow;
-    private readonly RacingService _iRacingService;
+        [ObservableProperty]
+        private int _speed;
 
-    [ObservableProperty] private int _speed;
+        [ObservableProperty]
+        private int _gear;
 
-    [ObservableProperty] private int _gear;
-
-    public OverlayViewModel(RacingService iRacingService) {
-        _iRacingService = iRacingService ?? throw new ArgumentNullException(nameof(iRacingService));
-        ShowOverlayCommand = new RelayCommand(ShowOverlay);
-    }
+        [ObservableProperty] 
+        private string _position = string.Empty;
     
+        [ObservableProperty]
+        private string _userName = string.Empty;
+    
+        [ObservableProperty]
+        private string _licString = string.Empty;
+    
+        [ObservableProperty]
+        private int _incidents;
+    
+        [ObservableProperty]
+        private string _lastLapTime = string.Empty;
+    
+        [ObservableProperty]
+        private string _bestLapTime = string.Empty;
 
-    private void OnDataReceived(DataSample sample) {
-        var telemetry = sample.Telemetry;
-        Speed = (int)(sample.Telemetry.Speed * 3.6);
-        Gear = sample.Telemetry.Gear;
+        public IRelayCommand ShowOverlayCommand { get; }
+        public IRelayCommand HideOverlayCommand { get; }
 
-        var sessionData = sample.SessionData;
-        
-        /* Todo
-           -- Logic for updating DriverStandings List
-         */
-        Application.Current.Dispatcher.Invoke(() => {
+        public OverlayViewModel(RacingService racingService)
+        {
+            _racingService = racingService;
+            _racingService.TelemetryUpdated += UpdateTelemetry;
+            _racingService.SessionInfoUpdated += UpdateSessionInfo;
             
-        });
-    }
+            ShowOverlayCommand = new RelayCommand(ShowOverlay);
+            HideOverlayCommand = new RelayCommand(HideOverlay);
+        }
 
-    public IRelayCommand ShowOverlayCommand { get; }
+        private void UpdateTelemetry(TelemetryInfo? telemetry)
+        {
+            if (telemetry == null) return;
 
-    private void ShowOverlay() {
+            try
+            {
+                // Access .Value property for TelemetryValue<T> types
+                Speed = (int)(telemetry.Speed.Value * 3.6);
+                Gear = telemetry.Gear.Value;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error updating telemetry: {ex.Message}");
+            }
+        }
 
-        try {
-            if (_overlayWindow is { IsVisible: false }) {
-                _overlayWindow = new OverlayWindow {
+        private void UpdateSessionInfo(object? sender, SdkWrapper.SessionInfoUpdatedEventArgs e)
+        {
+            if (e.SessionInfo == null) return;
+
+            try
+            {
+                // Access session info using the YAML query system
+                var driverIdx = _racingService.IsConnected ? _racingService.GetDriverId() : 0;
+        
+                // Get driver information using the YAML path
+                Position = e.SessionInfo.TryGetValue($"DriverInfo:Drivers:CarIdx:{driverIdx}:Position");
+                UserName = e.SessionInfo.TryGetValue($"DriverInfo:Drivers:CarIdx:{driverIdx}:UserName");
+                LicString = e.SessionInfo.TryGetValue($"DriverInfo:Drivers:CarIdx:{driverIdx}:LicString");
+        
+                var incidentsStr = e.SessionInfo.TryGetValue($"DriverInfo:Drivers:CarIdx:{driverIdx}:CurDriverIncidentCount");
+                if (int.TryParse(incidentsStr, out int incidentsVal))
+                {
+                    Incidents = incidentsVal;
+                }
+
+                // Get lap time information
+                var lastLapStr = e.SessionInfo.TryGetValue($"DriverInfo:Drivers:CarIdx:{driverIdx}:LastLapTime");
+                if (!string.IsNullOrEmpty(lastLapStr) && lastLapStr != "0")
+                {
+                    LastLapTime = FormatLapTime(lastLapStr);
+                }
+
+                var bestLapStr = e.SessionInfo.TryGetValue($"DriverInfo:Drivers:CarIdx:{driverIdx}:BestLapTime");
+                if (!string.IsNullOrEmpty(bestLapStr) && bestLapStr != "0")
+                {
+                    BestLapTime = FormatLapTime(bestLapStr);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error updating session info: {ex.Message}");
+            }
+        }
+
+        private string FormatLapTime(string lapTimeStr)
+        {
+            if (double.TryParse(lapTimeStr, out double lapTime))
+            {
+                TimeSpan ts = TimeSpan.FromSeconds(lapTime);
+                return ts.Minutes > 0 
+                    ? $"{ts.Minutes}:{ts.Seconds:D2}.{ts.Milliseconds:D3}" 
+                    : $"{ts.Seconds}.{ts.Milliseconds:D3}";
+            }
+            return lapTimeStr;
+        }
+
+        private void ShowOverlay()
+        {
+            if (_overlayWindow == null)
+            {
+                _overlayWindow = new OverlayWindow
+                {
                     DataContext = this
                 };
             }
 
-            _overlayWindow?.Show();
+            _overlayWindow.Show();
+            
+            _overlayWindow.DataContext = new RelativeOverlayViewModel(); // Set window DataContext
+            _overlayWindow.Show();
+            _overlayWindow.Loaded += (sender, e) => {
+                if (_overlayWindow.FindName("myView") is FrameworkElement myView)
+                    myView.DataContext = new RelativeOverlayViewModel();
+            };
         }
-        catch (Exception e) {
-            Debug.WriteLine($"Error showing overlay: {e.Message}");
-        }
-    }
 
-    [RelayCommand]
-    private void HideOverlay() {
-        if (_overlayWindow is { IsVisible: true }) {
-            _overlayWindow.Close();
+        private void HideOverlay()
+        {
+            _overlayWindow?.Hide();
         }
+        
+        // Add to OverlayViewModel.cs
+        public ObservableCollection<RelativeDriverInfo> RelativeDrivers { get; } = new();
     }
 }

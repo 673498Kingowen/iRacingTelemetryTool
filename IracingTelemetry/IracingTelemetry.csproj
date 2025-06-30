@@ -33,4 +33,9 @@
       </Reference>
     </ItemGroup>
 
+    <ItemGroup>
+      <None Remove="Resources\iracing-seeklogo.png" />
+      <Resource Include="Resources\iracing-seeklogo.png" />
+    </ItemGroup>
+
 </Project>
