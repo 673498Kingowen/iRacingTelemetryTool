@@ -3,20 +3,20 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:local="clr-namespace:IracingTelemetry.MVVM.Views"
+             xmlns:models="clr-namespace:IracingTelemetry.MVVM.Models"
+             xmlns:viewModels="clr-namespace:IracingTelemetry.MVVM.ViewModels"
              xmlns:converters="clr-namespace:IracingTelemetry.MVVM.Converters"
              mc:Ignorable="d"
+             
+             d:DataContext="{d:DesignInstance Type=viewModels:RelativeOverlayViewModel, IsDesignTimeCreatable=True}"
+             
              d:DesignHeight="450" d:DesignWidth="800">
-    
+
     <UserControl.Resources>
-        <!-- All converters are now defined and referenced correctly -->
         <converters:LicenseToColorConverter x:Key="LicenseToColorConverter"/>
-        <converters:TimeSpanToStringConverter x:Key="TimeSpanToStringConverter"/>
-        <converters:BoolToFontWeightConverter x:Key="BoolToFontWeightConverter"/>
-        <converters:BoolToColorConverter x:Key="BoolToColorConverter"/>
     </UserControl.Resources>
     
-    <Grid>
+    <Grid Background="Transparent">
         <ListView ItemsSource="{Binding RelativeDrivers}" 
                   Background="Transparent" 
                   BorderThickness="0"
@@ -34,67 +34,59 @@
                 </Style>
             </ListView.ItemContainerStyle>
             <ListView.ItemTemplate>
-                <DataTemplate>
+                <DataTemplate DataType="{x:Type models:RelativeDriverInfo}">
                     <Border Background="#99111111" CornerRadius="3" Margin="0,2" Padding="5">
                         <Grid>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="30"/>  <!-- Position -->
-                                <ColumnDefinition Width="40"/>  <!-- License Color -->
-                                <ColumnDefinition Width="180"/> <!-- Name -->
-                                <ColumnDefinition Width="60"/>  <!-- Delta -->
-                                <ColumnDefinition Width="100"/> <!-- Last Lap -->
-                                <ColumnDefinition Width="100"/> <!-- Fastest Lap -->
+                                <ColumnDefinition Width="30"/>
+                                <ColumnDefinition Width="40"/>
+                                <ColumnDefinition Width="180"/>
+                                <ColumnDefinition Width="60"/>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="100"/>
                             </Grid.ColumnDefinitions>
                             
-                            <!-- Position -->
-                            <TextBlock Grid.Column="0" 
-                                       Text="{Binding Position}" 
-                                       VerticalAlignment="Center"
-                                       HorizontalAlignment="Center"
-                                       Foreground="White"
-                                       FontWeight="Bold"/>
+                            <TextBlock Grid.Column="0" Text="{Binding Position}" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" FontWeight="Bold"/>
                             
-                            <!-- License Color Indicator -->
-                            <Border Grid.Column="1" 
-                                    Width="30" 
-                                    Height="15" 
-                                    CornerRadius="2"
-                                    Background="{Binding License, Converter={StaticResource LicenseToColorConverter}}"/>
+                            <Border Grid.Column="1" Width="30" Height="15" CornerRadius="2" Background="{Binding License, Converter={StaticResource LicenseToColorConverter}}"/>
                             
-                            <!-- Driver Name -->
-                            <TextBlock Grid.Column="2" 
-                                       Text="{Binding DriverName}" 
-                                       VerticalAlignment="Center"
-                                       Margin="5,0,0,0"
-                                       Foreground="White"/>
+                            <TextBlock Grid.Column="2" Text="{Binding Driver}" VerticalAlignment="Center" Margin="5,0,0,0">
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="Foreground" Value="White"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsPlayer}" Value="True">
+                                                <Setter Property="Foreground" Value="#00A8F0"/>
+                                                <Setter Property="FontWeight" Value="Bold"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
                             
-                            <!-- Delta Time -->
-                            <TextBlock Grid.Column="3" 
-                                       Text="{Binding DeltaTime, StringFormat='+{0:0.0}'}" 
-                                       VerticalAlignment="Center"
-                                       HorizontalAlignment="Right"
-                                       Foreground="White"/>
+                            <TextBlock Grid.Column="3" Text="{Binding DeltaTime}" VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="White"/>
                             
-                            <!-- Last Lap Time -->
                             <StackPanel Grid.Column="4" Orientation="Vertical" Margin="10,0,0,0">
-                                <TextBlock Text="Last Lap" 
-                                           FontSize="10" 
-                                           Foreground="LightGray"/>
-                                <TextBlock Text="{Binding LastLapTime, Converter={StaticResource TimeSpanToStringConverter}}" 
-                                           FontWeight="{Binding IsLastLapBest, Converter={StaticResource BoolToFontWeightConverter}}"
-                                           Foreground="{Binding IsLastLapBest, Converter={StaticResource BoolToColorConverter}}"
-                                           VerticalAlignment="Center"/>
+                                <TextBlock Text="Last Lap" FontSize="10" Foreground="LightGray"/>
+                                <TextBlock Text="{Binding LastLapTime}" VerticalAlignment="Center">
+                                    <TextBlock.Style>
+                                        <Style TargetType="TextBlock">
+                                            <Setter Property="Foreground" Value="White"/>
+                                            <Setter Property="FontWeight" Value="Normal"/>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding IsLastLapBest}" Value="True">
+                                                    <Setter Property="Foreground" Value="#FFD700"/>
+                                                    <Setter Property="FontWeight" Value="Bold"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBlock.Style>
+                                </TextBlock>
                             </StackPanel>
                             
-                            <!-- Fastest Lap Time -->
                             <StackPanel Grid.Column="5" Orientation="Vertical" Margin="10,0,0,0">
-                                <TextBlock Text="Fastest Lap" 
-                                           FontSize="10" 
-                                           Foreground="LightGray"/>
-                                <TextBlock Text="{Binding FastestLapTime, Converter={StaticResource TimeSpanToStringConverter}}" 
-                                           Foreground="#FFD700" 
-                                           FontWeight="Bold"
-                                           VerticalAlignment="Center"/>
+                                <TextBlock Text="Fastest Lap" FontSize="10" Foreground="LightGray"/>
+                                <TextBlock Text="{Binding FastestLapTime}" Foreground="#FFD700" FontWeight="Bold" VerticalAlignment="Center"/>
                             </StackPanel>
                         </Grid>
                     </Border>

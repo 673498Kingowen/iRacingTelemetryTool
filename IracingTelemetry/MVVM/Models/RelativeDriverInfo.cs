@@ -1,9 +1,19 @@
-﻿namespace IracingTelemetry.MVVM.Models;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using iRacingSdkWrapper;
+using iRacingSimulator.Drivers;
 
-public class RelativeDriverInfo {
-    public string Position { get; set; } = "";
-    public string UserName { get; set; } = "";
-    public string LicString { get; set; } = "";
-    public string Gap { get; set; } = "";
-    public bool IsCurrentDriver { get; set; }
+namespace IracingTelemetry.MVVM.Models
+{
+    public partial class RelativeDriverInfo : ObservableObject
+    {
+        [ObservableProperty] private int _carIdx;
+        [ObservableProperty] private int _position;
+        [ObservableProperty] private License? _license;
+        [ObservableProperty] private string _driver = string.Empty; 
+        [ObservableProperty] private string _deltaTime = string.Empty;
+        [ObservableProperty] private string _lastLapTime = "-";
+        [ObservableProperty] private string _fastestLapTime = "-";
+        [ObservableProperty] private bool _isPlayer;
+        [ObservableProperty] private bool _isLastLapBest;
+    }
 }

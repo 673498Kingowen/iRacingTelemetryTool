@@ -1,22 +1,28 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Diagnostics;
-using iRacingSdkWrapper;
 using System.Globalization;
+using System.Linq;
+using System.Runtime.CompilerServices;
+using iRacingSdkWrapper;
 
 namespace IracingTelemetry.Core
 {
     public class RacingService : INotifyPropertyChanged
     {
-        private readonly SdkWrapper _wrapper = new();
+        // Static instance for Singleton pattern
+        private static readonly Lazy<RacingService> _instance = new(() => new RacingService());
+        public static RacingService Instance => _instance.Value;
+
+        private readonly SdkWrapper _wrapper;
         private bool _isConnected;
 
-        public event Action<TelemetryInfo> TelemetryUpdated = null!;
-        public event Action<string> ConnectionStatusChanged = null!;
-
-        // Define a single session info event with delegate
-        public delegate void SessionInfoEventHandler(object? sender, SdkWrapper.SessionInfoUpdatedEventArgs e);
-        public event SessionInfoEventHandler? SessionInfoUpdated;
+        // --- Public events for ViewModels to subscribe to ---
+        public event Action<TelemetryInfo> TelemetryUpdated = delegate { };
+        public event Action<SessionInfo> SessionInfoUpdated = delegate { };
+        
+        // -- ADD THIS EVENT BACK IN --
+        public event Action<string> ConnectionStatusChanged = delegate { };
 
         public bool IsConnected
         {
@@ -26,37 +32,47 @@ namespace IracingTelemetry.Core
                 if (_isConnected != value)
                 {
                     _isConnected = value;
-                    OnPropertyChanged(nameof(IsConnected));
+                    OnPropertyChanged();
+                    // Also fire the status changed event for logging/display
                     ConnectionStatusChanged?.Invoke(value ? "Connected" : "Disconnected");
                 }
             }
         }
+        
+        public int PlayerCarIdx => _wrapper.DriverId;
 
-        public RacingService()
+        private RacingService()
         {
-            // 1. Instantiate the wrapper.
+            _wrapper = new SdkWrapper();
             _wrapper.TelemetryUpdateFrequency = 60;
 
-            // 2. Subscribe to the events.
-            _wrapper.Connected += OnConnected;
-            _wrapper.Disconnected += OnDisconnected;
-            _wrapper.TelemetryUpdated += OnTelemetryUpdated;
-            _wrapper.SessionInfoUpdated += OnSessionInfoUpdated;
+            _wrapper.Connected += (s, e) => { IsConnected = true; };
+            _wrapper.Disconnected += (s, e) => { IsConnected = false; };
+            
+            _wrapper.TelemetryUpdated += (s, e) =>
+            {
+                TelemetryUpdated?.Invoke(e.TelemetryInfo);
+            };
+
+            _wrapper.SessionInfoUpdated += (s, e) =>
+            {
+                SessionInfoUpdated?.Invoke(e.SessionInfo);
+            };
         }
 
-        // 3. Start the connection.
         public void Start()
         {
-            if (!IsIRacingRunning())
+            if (IsIRacingRunning())
             {
-                Log($"iRacing is not running. Please start iRacing.");
-                return;
+                if (!_wrapper.IsRunning)
+                {
+                    Log("iRacing detected. Starting connection...");
+                    _wrapper.Start();
+                }
             }
-
-            Log($"iRacing detected. Starting connection...");
-            if (!_wrapper.IsRunning)
+            else
             {
-                _wrapper.Start();
+                Log("iRacing is not running.");
             }
         }
 
@@ -65,83 +81,31 @@ namespace IracingTelemetry.Core
             if (_wrapper.IsRunning)
             {
                 _wrapper.Stop();
-            }
-            Log($"Service stopped.");
-        }
-
-        // 4. Handle the "Connected" event.
-        private void OnConnected(object? sender, EventArgs e)
-        {
-            IsConnected = true;
-            Log($"Successfully connected to iRacing! Waiting for data...");
-        }
-
-        // 5. Handle the "Disconnected" event.
-        private void OnDisconnected(object? sender, EventArgs e)
-        {
-            IsConnected = false;
-            Log($"Disconnected from iRacing.");
-        }
-
-        // 6. Handle new telemetry data when it arrives.
-        private void OnTelemetryUpdated(object? sender, SdkWrapper.TelemetryUpdatedEventArgs e)
-        {
-            // The e.TelemetryInfo object contains all the live data.
-            DisplayTelemetry(e.TelemetryInfo);
-            TelemetryUpdated?.Invoke(e.TelemetryInfo);
-        }
-
-        // Forward session info updated events
-        private void OnSessionInfoUpdated(object? sender, SdkWrapper.SessionInfoUpdatedEventArgs e)
-        {
-            // Forward the event for session info (driver details, etc.)
-            SessionInfoUpdated?.Invoke(this, e);
-        }
-
-        // Helper method to display telemetry data.
-        private void DisplayTelemetry(TelemetryInfo telemetry) {
-            try {
-                var sessionTime = telemetry.SessionTime;
-                var speed = telemetry.Speed;
-                var rpm = telemetry.RPM;
-                var gear = telemetry.Gear;
-                var fuel = telemetry.FuelLevel;
-
-                // This logging is for debugging and can be removed in production
-                // Console.WriteLine($"\n--- TELEMETRY DATA ---");
-                // Console.WriteLine($"Session time: {sessionTime:F1}s");
-                // Console.WriteLine($"Speed: {speed.Value * 3.6:F1} km/h");
-                // Console.WriteLine($"RPM: {rpm:F0}");
-                // Console.WriteLine($"Gear: {gear}");
-                // Console.WriteLine($"Fuel: {fuel:F1}L");
-                // Console.WriteLine($"------------------------------");
-            }
-            catch (Exception ex) {
-                Log($"Error displaying telemetry: {ex.Message}");
+                Log("Service stopped.");
             }
         }
-
-        // Helper method to log messages.
-        private void Log(FormattableString message) {
-            string formattedMessage = message.ToString(CultureInfo.InvariantCulture);
-            Console.WriteLine(formattedMessage);
-            ConnectionStatusChanged?.Invoke(formattedMessage);
+        
+        // Helper method to log messages and fire the event
+        private void Log(string message) {
+            Console.WriteLine(message);
+            ConnectionStatusChanged?.Invoke(message);
         }
 
-        // Helper method to check if iRacing is running.
-        private bool IsIRacingRunning() {
+        private bool IsIRacingRunning()
+        {
             return Process.GetProcessesByName("iRacingSim64DX11").Length > 0;
         }
+        
 
-        // Property changed implementation
+        #region INotifyPropertyChanged
+
         public event PropertyChangedEventHandler? PropertyChanged;
-        protected virtual void OnPropertyChanged(string propertyName)
+
+        protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-        
-        public int GetDriverId() {
-            return _wrapper.DriverId;
-        }
+
+        #endregion
     }
 }

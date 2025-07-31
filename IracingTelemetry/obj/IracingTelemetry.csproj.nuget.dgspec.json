@@ -125,6 +125,14 @@
               "target": "Package",
               "version": "[1.1.4, )"
             },
+            "System.Core": {
+              "target": "Package",
+              "version": "[3.5.21022.801, )"
+            },
+            "System.Linq": {
+              "target": "Package",
+              "version": "[4.3.0, )"
+            },
             "YamlDotNet": {
               "target": "Package",
               "version": "[16.3.0, )"

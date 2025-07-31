@@ -11,8 +11,7 @@ namespace IracingTelemetry.MVVM.Converters
         {
             if (value is not string licString || string.IsNullOrEmpty(licString))
                 return Brushes.White;
-
-            // iRacing licenses are typically formatted like "A 4.99", "B 3.24", etc.
+            
             if (licString.StartsWith("R") || licString.StartsWith("Rookie"))
                 return new SolidColorBrush(Color.FromRgb(255, 0, 0)); // Red for Rookie
 

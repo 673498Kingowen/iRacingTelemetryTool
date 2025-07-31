@@ -1,29 +1,10 @@
-﻿using System.ComponentModel;
-using System.Runtime.CompilerServices;
-
-public class RelativeOverlayViewModel : INotifyPropertyChanged
+﻿namespace IracingTelemetry.MVVM.Views
 {
-    private string _position;
-    
-    public string Position
+    public partial class RelativOverlay
     {
-        get => _position;
-        set
+        public RelativOverlay()
         {
-            if (_position != value)
-            {
-                _position = value;
-                OnPropertyChanged();
-            }
+            InitializeComponent();
         }
     }
-    
-    // INotifyPropertyChanged implementation
-    public event PropertyChangedEventHandler? PropertyChanged;
-    
-    private void OnPropertyChanged([CallerMemberName] string? propertyName = null)
-    {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-    }
-    
 }

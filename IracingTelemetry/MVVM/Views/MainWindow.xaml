@@ -4,9 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:IracingTelemetry"
-        xmlns:views="clr-namespace:IracingTelemetry.MVVM.Views"
         xmlns:viewModels="clr-namespace:IracingTelemetry.MVVM.ViewModels"
-        xmlns:views1="clr-namespace:IracingTelemetry.MVVM.Views"
+        xmlns:views="clr-namespace:IracingTelemetry.MVVM.Views"
         mc:Ignorable="d"
         Title="iRacing Telemetry Overlay" 
         Height="650" Width="950"
@@ -14,8 +13,9 @@
         Background="#1E1E1E"
         FontFamily="Segoe UI"
         ResizeMode="CanResize"
-        Icon="/Resources/iracing-seeklogo.png">
-    
+        Icon="/Resources/iracing-seeklogo.png"
+        d:DataContext="{d:DesignInstance Type=viewModels:MainViewModel}">
+
     <Window.Resources>
         <Style x:Key="RacingButtonStyle" TargetType="Button">
             <Setter Property="Background" Value="#0078D7"/>
@@ -73,10 +73,12 @@
             </Setter>
             <Style.Triggers>
                 <Trigger Property="IsSelected" Value="True">
-                    <Setter Property="Background" Value="#1E1E1E"/> <Setter Property="Foreground" Value="White"/>
+                    <Setter Property="Background" Value="#1E1E1E"/>
+                    <Setter Property="Foreground" Value="White"/>
                 </Trigger>
                 <Trigger Property="IsSelected" Value="False">
-                    <Setter Property="Background" Value="#252525"/> <Setter Property="Foreground" Value="#CCCCCC"/>
+                    <Setter Property="Background" Value="#252525"/>
+                    <Setter Property="Foreground" Value="#CCCCCC"/>
                 </Trigger>
             </Style.Triggers>
         </Style>
@@ -108,8 +110,19 @@
                 </StackPanel>
                 
                 <StackPanel Grid.Column="2" Orientation="Horizontal">
-                    <Ellipse x:Name="ConnectionStatus" Width="12" Height="12" Fill="Red" Margin="0,0,8,0" VerticalAlignment="Center"/>
-                    <TextBlock x:Name="ConnectionStatusText" Text="Disconnected" Foreground="#CCCCCC" VerticalAlignment="Center"/>
+                    <Ellipse Width="12" Height="12" Margin="0,0,8,0" VerticalAlignment="Center">
+                        <Ellipse.Style>
+                            <Style TargetType="Ellipse">
+                                <Setter Property="Fill" Value="Red"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding ConnectionStatus}" Value="Connected">
+                                        <Setter Property="Fill" Value="LimeGreen"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Ellipse.Style>
+                    </Ellipse>
+                    <TextBlock Text="{Binding ConnectionStatus}" Foreground="#CCCCCC" VerticalAlignment="Center"/>
                 </StackPanel>
             </Grid>
         </Border>
@@ -130,6 +143,7 @@
                                VerticalAlignment="Center"/>
                 </Grid>
             </TabItem>
+            
             
             <TabItem Header="Settings">
                 <Border Background="#1E1E1E" Padding="20">
@@ -159,6 +173,7 @@
                     </Grid>
                 </Border>
             </TabItem>
+            
         </TabControl>
         
         <Border Grid.Row="2" Background="#121212" Padding="10">
@@ -168,8 +183,12 @@
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
                 
-                <TextBlock Grid.Column="0" Text="Ready" Foreground="#999999" VerticalAlignment="Center"/>
-                <Button Grid.Column="1" Content="Start iRacing Connection" Style="{StaticResource RacingButtonStyle}"/>
+                <TextBlock Grid.Column="0" Text="{Binding ConnectionStatus}" Foreground="#999999" VerticalAlignment="Center"/>
+                
+                <Button Grid.Column="1" 
+                        Content="Start iRacing Connection" 
+                        Style="{StaticResource RacingButtonStyle}"
+                        Command="{Binding StartConnectionCommand}"/>
             </Grid>
         </Border>
     </Grid>

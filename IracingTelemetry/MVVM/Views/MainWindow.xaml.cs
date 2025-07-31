@@ -6,10 +6,7 @@ namespace IracingTelemetry.MVVM.Views
     public partial class MainWindow : System.Windows.Window
     {
         public MainWindow() {
-            var racingService = new RacingService();
-            
-            DataContext = new MainViewModel(racingService);
-            
+            DataContext = new MainViewModel();
             InitializeComponent();
         }
     }

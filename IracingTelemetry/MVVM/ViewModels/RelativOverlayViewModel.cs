@@ -1,101 +1,114 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
+using System.Windows;
+using System.Windows.Media;
+using CommunityToolkit.Mvvm.ComponentModel;
 using IracingTelemetry.Core;
+using IracingTelemetry.MVVM.Models;
 using iRacingSdkWrapper;
+using iRacingSimulator.Drivers;
 
 namespace IracingTelemetry.MVVM.ViewModels
 {
-    public class RelativeOverlayViewModel : INotifyPropertyChanged
+    public partial class RelativeOverlayViewModel : ObservableObject
     {
-        private readonly RacingService _racingService;
-        private SessionInfo _sessionInfo;
+        public ObservableCollection<RelativeDriverInfo> RelativeDrivers { get; } = new();
+        private SessionInfo? _latestSessionInfo;
 
-        public ObservableCollection<RelativeDriverViewModel> RelativeDrivers { get; }
-
-        public RelativeOverlayViewModel(RacingService racingService)
+        public RelativeOverlayViewModel()
         {
-            _racingService = racingService;
-            RelativeDrivers = new ObservableCollection<RelativeDriverViewModel>();
-
-            _racingService.SessionInfoUpdated += OnSessionInfoUpdated;
-            _racingService.TelemetryUpdated += OnTelemetryUpdated;
+            RacingService.Instance.SessionInfoUpdated += OnSessionInfoUpdated;
+            RacingService.Instance.TelemetryUpdated += OnTelemetryUpdated;
         }
 
-        private void OnSessionInfoUpdated(object sender, SdkWrapper.SessionInfoUpdatedEventArgs e)
+        private void OnSessionInfoUpdated(SessionInfo sessionInfo)
         {
-            _sessionInfo = e.SessionInfo;
+            _latestSessionInfo = sessionInfo;
         }
 
         private void OnTelemetryUpdated(TelemetryInfo telemetry)
         {
-            if (_sessionInfo == null) return;
-            
-            System.Windows.Application.Current.Dispatcher.Invoke(() =>
-            {
-                UpdateRelativeDrivers(telemetry);
-            });
-        }
+            if (_latestSessionInfo == null) return;
 
-        private void UpdateRelativeDrivers(TelemetryInfo telemetry)
-        {
-            var player = _sessionInfo.DriverInfo.Drivers.FirstOrDefault(d => d.CarIdx == telemetry.PlayerCarIdx);
-            if (player == null) return;
+            var playerCarIdx = RacingService.Instance.PlayerCarIdx;
 
-            var driversOnTrack = _sessionInfo.DriverInfo.Drivers
-                .Where(d => d.IsOnTrack)
-                .OrderBy(d => d.Live.LapDist)
+            var allDrivers = Enumerable.Range(0, telemetry.CarIdxLapDistPct.Value.Length)
+                .Where(i => telemetry.CarIdxTrackSurface.Value[i] != TrackSurfaces.NotInWorld)
+                .Select(i => new
+                {
+                    CarIdx = i,
+                    LapDistPct = telemetry.CarIdxLapDistPct.Value[i]
+                })
+                .OrderByDescending(d => d.LapDistPct)
                 .ToList();
 
-            var playerIndex = driversOnTrack.FindIndex(d => d.CarIdx == player.CarIdx);
+            var playerIndex = allDrivers.FindIndex(d => d.CarIdx == playerCarIdx);
             if (playerIndex == -1) return;
 
-            RelativeDrivers.Clear();
-            
-            const int carsAhead = 5;
-            const int carsBehind = 5;
+            var driversToShow = allDrivers
+                .Skip(Math.Max(0, playerIndex - 3))
+                .Take(7)
+                .ToList();
 
-            int startIndex = Math.Max(0, playerIndex - carsBehind);
-            int endIndex = Math.Min(driversOnTrack.Count - 1, playerIndex + carsAhead);
-
-            for (int i = startIndex; i <= endIndex; i++)
+            Application.Current?.Dispatcher.Invoke(new Action(() =>
             {
-                var driver = driversOnTrack[i];
-                var driverTelemetry = telemetry.Cars[driver.CarIdx];
-                
-                var delta = driver.Live.LapDist - player.Live.LapDist;
-                
-                RelativeDrivers.Add(new RelativeDriverViewModel(driver, delta));
-            }
+                if (_latestSessionInfo == null) return;
+
+                while (RelativeDrivers.Count < driversToShow.Count)
+                {
+                    RelativeDrivers.Add(new RelativeDriverInfo());
+                }
+                while (RelativeDrivers.Count > driversToShow.Count)
+                {
+                    RelativeDrivers.RemoveAt(RelativeDrivers.Count - 1);
+                }
+
+                for (int i = 0; i < driversToShow.Count; i++)
+                {
+                    var driverData = driversToShow[i];
+                    var itemToUpdate = RelativeDrivers[i];
+                    var carIdx = driverData.CarIdx;
+
+                    var driverQuery = _latestSessionInfo["DriverInfo"]["Drivers"]["CarIdx", carIdx];
+                    
+                    var currentSessionNum = telemetry.SessionNum.Value;
+                    var resultsQuery = _latestSessionInfo["SessionInfo"]["Sessions"]["SessionNum", currentSessionNum]["ResultsPositions"]["CarIdx", carIdx];
+
+                    itemToUpdate.CarIdx = carIdx;
+                    itemToUpdate.Position = int.TryParse(resultsQuery["Position"].GetValue(), out var pos) ? pos : 0;
+                    itemToUpdate.Driver = driverQuery["UserName"].GetValue() ?? "N/A";
+
+                    int.TryParse(driverQuery["LicLevel"].GetValue(), out var licLevel);
+                    int.TryParse(driverQuery["LicSubLevel"].GetValue(), out var licSubLevel);
+                    
+                    var licColorString = driverQuery["LicColor"].GetValue() ?? "0xFFFFFF";
+                    var color = (Color)(ColorConverter.ConvertFromString(licColorString) ?? Colors.White);
+                    itemToUpdate.License = new License(licLevel, licSubLevel, color);
+
+                    float.TryParse(resultsQuery["LastTime"].GetValue(), out var lastTime);
+                    float.TryParse(resultsQuery["FastestTime"].GetValue(), out var fastestTime);
+                    
+                    itemToUpdate.LastLapTime = FormatLapTime(lastTime > 0 ? lastTime : -1);
+                    itemToUpdate.FastestLapTime = FormatLapTime(fastestTime > 0 ? fastestTime : -1);
+                    
+                    itemToUpdate.IsLastLapBest = (lastTime > 0 && lastTime == fastestTime);
+
+                    itemToUpdate.IsPlayer = carIdx == playerCarIdx;
+                    
+                    var playerTime = telemetry.CarIdxEstTime.Value[playerCarIdx];
+                    var driverTime = telemetry.CarIdxEstTime.Value[carIdx];
+                    var delta = driverTime - playerTime;
+                    itemToUpdate.DeltaTime = itemToUpdate.IsPlayer ? "0.0" : delta.ToString("F1", CultureInfo.InvariantCulture);
+                }
+            }));
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected virtual void OnPropertyChanged(string propertyName)
+        private string FormatLapTime(float lapTime)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            if (lapTime <= 0) return "-";
+            return TimeSpan.FromSeconds(lapTime).ToString(@"m\:ss\.fff");
         }
-    }
-    
-    public class RelativeDriverViewModel
-    {
-        private readonly iRacingSdkWrapper.Drivers.Driver _driver;
-
-        public RelativeDriverViewModel(iRacingSdkWrapper.Drivers.Driver driver, float deltaTime)
-        {
-            _driver = driver;
-            DeltaTime = deltaTime;
-        }
-
-        public int Position => _driver.Position;
-        public string DriverName => _driver.UserName;
-        public string License => _driver.LicString;
-        public float DeltaTime { get; }
-        
-        public TimeSpan LastLapTime => TimeSpan.FromSeconds(_driver.LastLapTime);
-        public TimeSpan FastestLapTime => TimeSpan.FromSeconds(_driver.BestLapTime);
-
- 
-        public bool IsLastLapBest => _driver.LastLapTime > 0 && _driver.LastLapTime == _driver.BestLapTime;
     }
 }

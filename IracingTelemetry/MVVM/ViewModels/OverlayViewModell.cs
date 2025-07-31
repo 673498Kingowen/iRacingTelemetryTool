@@ -7,12 +7,12 @@ using IracingTelemetry.Core;
 using IracingTelemetry.MVVM.Views;
 using iRacingSdkWrapper;
 using IracingTelemetry.MVVM.Models;
+using System.Globalization;
 
 namespace IracingTelemetry.MVVM.ViewModels
 {
     public partial class OverlayViewModel : ObservableObject
     {
-        private readonly RacingService _racingService;
         private OverlayWindow? _overlayWindow;
 
         [ObservableProperty]
@@ -41,24 +41,37 @@ namespace IracingTelemetry.MVVM.ViewModels
 
         public IRelayCommand ShowOverlayCommand { get; }
         public IRelayCommand HideOverlayCommand { get; }
-
-        public OverlayViewModel(RacingService racingService)
+        
+        public IRelayCommand ShowSpeedOverlayCommand { get; }
+        public IRelayCommand HideSpeedOverlayCommand { get; }
+        public IRelayCommand ShowRelativeOverlayCommand { get; }
+        public IRelayCommand HideRelativeOverlayCommand { get; }
+        
+        public OverlayViewModel()
         {
-            _racingService = racingService;
-            _racingService.TelemetryUpdated += UpdateTelemetry;
-            _racingService.SessionInfoUpdated += UpdateSessionInfo;
+            RacingService.Instance.TelemetryUpdated += UpdateTelemetry;
+            RacingService.Instance.SessionInfoUpdated += OnSessionInfoUpdated;
             
             ShowOverlayCommand = new RelayCommand(ShowOverlay);
             HideOverlayCommand = new RelayCommand(HideOverlay);
+            
+            ShowOverlayCommand = new RelayCommand(ShowOverlay);
+            HideOverlayCommand = new RelayCommand(HideOverlay);
+            ShowSpeedOverlayCommand = new RelayCommand(ShowSpeedOverlay);
+            HideSpeedOverlayCommand = new RelayCommand(HideSpeedOverlay);
+            ShowRelativeOverlayCommand = new RelayCommand(ShowRelativeOverlay);
+            HideRelativeOverlayCommand = new RelayCommand(HideRelativeOverlay);
+
+            // Start the service
+            RacingService.Instance.Start();
         }
 
-        private void UpdateTelemetry(TelemetryInfo? telemetry)
+        private void UpdateTelemetry(TelemetryInfo telemetry)
         {
             if (telemetry == null) return;
 
             try
             {
-                // Access .Value property for TelemetryValue<T> types
                 Speed = (int)(telemetry.Speed.Value * 3.6);
                 Gear = telemetry.Gear.Value;
             }
@@ -67,36 +80,33 @@ namespace IracingTelemetry.MVVM.ViewModels
                 Console.WriteLine($"Error updating telemetry: {ex.Message}");
             }
         }
-
-        private void UpdateSessionInfo(object? sender, SdkWrapper.SessionInfoUpdatedEventArgs e)
+        
+        private void OnSessionInfoUpdated(SessionInfo sessionInfo)
         {
-            if (e.SessionInfo == null) return;
+            if (sessionInfo == null) return;
 
             try
             {
-                // Access session info using the YAML query system
-                var driverIdx = _racingService.IsConnected ? _racingService.GetDriverId() : 0;
+                var driverIdx = RacingService.Instance.PlayerCarIdx;
         
-                // Get driver information using the YAML path
-                Position = e.SessionInfo.TryGetValue($"DriverInfo:Drivers:CarIdx:{driverIdx}:Position");
-                UserName = e.SessionInfo.TryGetValue($"DriverInfo:Drivers:CarIdx:{driverIdx}:UserName");
-                LicString = e.SessionInfo.TryGetValue($"DriverInfo:Drivers:CarIdx:{driverIdx}:LicString");
+                Position = sessionInfo["DriverInfo"]["Drivers"]["CarIdx", driverIdx]["Position"].GetValue();
+                UserName = sessionInfo["DriverInfo"]["Drivers"]["CarIdx", driverIdx]["UserName"].GetValue();
+                LicString = sessionInfo["DriverInfo"]["Drivers"]["CarIdx", driverIdx]["LicString"].GetValue();
         
-                var incidentsStr = e.SessionInfo.TryGetValue($"DriverInfo:Drivers:CarIdx:{driverIdx}:CurDriverIncidentCount");
+                var incidentsStr = sessionInfo["SessionInfo"]["Sessions"]["ResultsPositions"]["CarIdx", driverIdx]["Incidents"].GetValue();
                 if (int.TryParse(incidentsStr, out int incidentsVal))
                 {
                     Incidents = incidentsVal;
                 }
 
-                // Get lap time information
-                var lastLapStr = e.SessionInfo.TryGetValue($"DriverInfo:Drivers:CarIdx:{driverIdx}:LastLapTime");
-                if (!string.IsNullOrEmpty(lastLapStr) && lastLapStr != "0")
+                var lastLapStr = sessionInfo["SessionInfo"]["Sessions"]["ResultsPositions"]["CarIdx", driverIdx]["LastTime"].GetValue();
+                if (!string.IsNullOrEmpty(lastLapStr) && lastLapStr != "-1.000")
                 {
                     LastLapTime = FormatLapTime(lastLapStr);
                 }
 
-                var bestLapStr = e.SessionInfo.TryGetValue($"DriverInfo:Drivers:CarIdx:{driverIdx}:BestLapTime");
-                if (!string.IsNullOrEmpty(bestLapStr) && bestLapStr != "0")
+                var bestLapStr = sessionInfo["SessionInfo"]["Sessions"]["ResultsPositions"]["CarIdx", driverIdx]["FastestTime"].GetValue();
+                if (!string.IsNullOrEmpty(bestLapStr) && bestLapStr != "-1.000")
                 {
                     BestLapTime = FormatLapTime(bestLapStr);
                 }
@@ -109,7 +119,7 @@ namespace IracingTelemetry.MVVM.ViewModels
 
         private string FormatLapTime(string lapTimeStr)
         {
-            if (double.TryParse(lapTimeStr, out double lapTime))
+            if (double.TryParse(lapTimeStr, NumberStyles.Any, CultureInfo.InvariantCulture, out double lapTime))
             {
                 TimeSpan ts = TimeSpan.FromSeconds(lapTime);
                 return ts.Minutes > 0 
@@ -125,18 +135,11 @@ namespace IracingTelemetry.MVVM.ViewModels
             {
                 _overlayWindow = new OverlayWindow
                 {
-                    DataContext = this
+                    DataContext = new RelativeOverlayViewModel()
                 };
             }
 
             _overlayWindow.Show();
-            
-            _overlayWindow.DataContext = new RelativeOverlayViewModel(); // Set window DataContext
-            _overlayWindow.Show();
-            _overlayWindow.Loaded += (sender, e) => {
-                if (_overlayWindow.FindName("myView") is FrameworkElement myView)
-                    myView.DataContext = new RelativeOverlayViewModel();
-            };
         }
 
         private void HideOverlay()
@@ -144,7 +147,43 @@ namespace IracingTelemetry.MVVM.ViewModels
             _overlayWindow?.Hide();
         }
         
-        // Add to OverlayViewModel.cs
+        private OverlayWindow? _speedOverlayWindow;
+        private OverlayWindow? _relativeOverlayWindow;
+
+        private void ShowSpeedOverlay()
+        {
+            if (_speedOverlayWindow == null)
+            {
+                _speedOverlayWindow = new OverlayWindow();
+            }
+            _speedOverlayWindow.Show();
+        }
+
+        private void HideSpeedOverlay()
+        {
+            _speedOverlayWindow?.Hide();
+        }
+
+        private void ShowRelativeOverlay()
+        {
+            if (_relativeOverlayWindow == null)
+            {
+                _relativeOverlayWindow = new OverlayWindow
+                {
+                    Content = new RelativOverlay
+                    {
+                        DataContext = new RelativeOverlayViewModel()
+                    }
+                };
+            }
+            _relativeOverlayWindow.Show();
+        }
+
+        private void HideRelativeOverlay()
+        {
+            _relativeOverlayWindow?.Hide();
+        }
+        
         public ObservableCollection<RelativeDriverInfo> RelativeDrivers { get; } = new();
     }
 }
