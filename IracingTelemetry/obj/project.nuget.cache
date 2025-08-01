@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "ra2IdSr2SsY=",
+  "dgSpecHash": "qRp68kDEDr4=",
   "success": true,
   "projectFilePath": "C:\\Users\\Owen\\RiderProjects\\iRacingTelemetryTool\\IracingTelemetry\\IracingTelemetry.csproj",
   "expectedPackageFiles": [
@@ -28,8 +28,10 @@
     {
       "code": "NU1701",
       "level": "Warning",
-      "warningLevel": 1,
       "message": "Package 'iRacingSDK 1.18.6' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net8.0-windows7.0'. This package may not be fully compatible with your project.",
+      "projectPath": "C:\\Users\\Owen\\RiderProjects\\iRacingTelemetryTool\\IracingTelemetry\\IracingTelemetry.csproj",
+      "warningLevel": 1,
+      "filePath": "C:\\Users\\Owen\\RiderProjects\\iRacingTelemetryTool\\IracingTelemetry\\IracingTelemetry.csproj",
       "libraryId": "iRacingSDK",
       "targetGraphs": [
         "net8.0-windows7.0"
@@ -38,8 +40,10 @@
     {
       "code": "NU1701",
       "level": "Warning",
-      "warningLevel": 1,
       "message": "Package 'System.Core 3.5.21022.801' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net8.0-windows7.0'. This package may not be fully compatible with your project.",
+      "projectPath": "C:\\Users\\Owen\\RiderProjects\\iRacingTelemetryTool\\IracingTelemetry\\IracingTelemetry.csproj",
+      "warningLevel": 1,
+      "filePath": "C:\\Users\\Owen\\RiderProjects\\iRacingTelemetryTool\\IracingTelemetry\\IracingTelemetry.csproj",
       "libraryId": "System.Core",
       "targetGraphs": [
         "net8.0-windows7.0"
