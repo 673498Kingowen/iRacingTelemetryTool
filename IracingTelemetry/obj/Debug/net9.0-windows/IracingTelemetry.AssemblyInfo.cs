@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("IracingTelemetry")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+280c47114482c4d256a438ae976bf00f6b643adf")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7919cc61b1dee6bad4bbea15a93dc95b45fb0c24")]
 [assembly: System.Reflection.AssemblyProductAttribute("IracingTelemetry")]
 [assembly: System.Reflection.AssemblyTitleAttribute("IracingTelemetry")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

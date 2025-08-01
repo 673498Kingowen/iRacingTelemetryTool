@@ -232,15 +232,15 @@
           }
         }
       },
-      "YamlDotNet/16.3.0": {
+      "YamlDotNet/13.0.0": {
         "type": "package",
         "compile": {
-          "lib/net8.0/YamlDotNet.dll": {
+          "lib/net7.0/YamlDotNet.dll": {
             "related": ".xml"
           }
         },
         "runtime": {
-          "lib/net8.0/YamlDotNet.dll": {
+          "lib/net7.0/YamlDotNet.dll": {
             "related": ".xml"
           }
         }
@@ -1255,26 +1255,30 @@
         "system.threading.tasks.nuspec"
       ]
     },
-    "YamlDotNet/16.3.0": {
-      "sha512": "SgMOdxbz8X65z8hraIs6hOEdnkH6hESTAIUa7viEngHOYaH+6q5XJmwr1+yb9vJpNQ19hCQY69xbFsLtXpobQA==",
+    "YamlDotNet/13.0.0": {
+      "sha512": "4ZNUK9nl6i8DHPbjmJR23OJvCvesgTJoDuILy0bpN2HeYROpKa4bDy8QvXXPcPnmes573IS9FGFUqpZgKeFLGA==",
       "type": "package",
-      "path": "yamldotnet/16.3.0",
+      "path": "yamldotnet/13.0.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "README.md",
+        "LICENSE.txt",
         "images/yamldotnet.png",
+        "lib/net35/YamlDotNet.dll",
+        "lib/net35/YamlDotNet.xml",
+        "lib/net45/YamlDotNet.dll",
+        "lib/net45/YamlDotNet.xml",
         "lib/net47/YamlDotNet.dll",
         "lib/net47/YamlDotNet.xml",
         "lib/net6.0/YamlDotNet.dll",
         "lib/net6.0/YamlDotNet.xml",
-        "lib/net8.0/YamlDotNet.dll",
-        "lib/net8.0/YamlDotNet.xml",
+        "lib/net7.0/YamlDotNet.dll",
+        "lib/net7.0/YamlDotNet.xml",
         "lib/netstandard2.0/YamlDotNet.dll",
         "lib/netstandard2.0/YamlDotNet.xml",
         "lib/netstandard2.1/YamlDotNet.dll",
         "lib/netstandard2.1/YamlDotNet.xml",
-        "yamldotnet.16.3.0.nupkg.sha512",
+        "yamldotnet.13.0.0.nupkg.sha512",
         "yamldotnet.nuspec"
       ]
     },
@@ -1300,6 +1304,7 @@
       "IRSDKSharper >= 1.1.4",
       "System.Core >= 3.5.21022.801",
       "System.Linq >= 4.3.0",
+      "YamlDotNet >= 13.0.0",
       "iRSDKSharp >= 1.0.0",
       "iRacingSDK >= 1.18.6",
       "iRacingSdkWrapper >= 1.0.0",
@@ -1383,6 +1388,10 @@
             "target": "Package",
             "version": "[4.3.0, )"
           },
+          "YamlDotNet": {
+            "target": "Package",
+            "version": "[13.0.0, )"
+          },
           "iRacingSDK": {
             "target": "Package",
             "version": "[1.18.6, )"
@@ -1428,6 +1437,15 @@
       "warningLevel": 1,
       "message": "Package 'System.Core 3.5.21022.801' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net9.0-windows7.0'. This package may not be fully compatible with your project.",
       "libraryId": "System.Core",
+      "targetGraphs": [
+        "net9.0-windows7.0"
+      ]
+    },
+    {
+      "code": "NU1605",
+      "level": "Error",
+      "message": "Warning As Error: Detected package downgrade: YamlDotNet from 16.3.0 to 13.0.0. Reference the package directly from the project to select a different version. \r\n IracingTelemetry -> IRSDKSharper 1.1.4 -> YamlDotNet (>= 16.3.0) \r\n IracingTelemetry -> YamlDotNet (>= 13.0.0)",
+      "libraryId": "YamlDotNet",
       "targetGraphs": [
         "net9.0-windows7.0"
       ]

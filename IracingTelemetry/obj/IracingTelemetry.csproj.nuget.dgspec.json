@@ -133,6 +133,10 @@
               "target": "Package",
               "version": "[4.3.0, )"
             },
+            "YamlDotNet": {
+              "target": "Package",
+              "version": "[13.0.0, )"
+            },
             "iRacingSDK": {
               "target": "Package",
               "version": "[1.18.6, )"

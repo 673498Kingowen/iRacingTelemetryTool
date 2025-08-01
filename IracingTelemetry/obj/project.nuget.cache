@@ -1,7 +1,7 @@
 {
   "version": 2,
-  "dgSpecHash": "1p9ZDL/7J7A=",
-  "success": true,
+  "dgSpecHash": "YNtCluVQh50=",
+  "success": false,
   "projectFilePath": "C:\\Users\\Owen\\Documents\\iRacingTelemetryTool\\IracingTelemetry\\IracingTelemetry.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Owen\\.nuget\\packages\\communitytoolkit.mvvm\\8.4.0\\communitytoolkit.mvvm.8.4.0.nupkg.sha512",
@@ -22,7 +22,7 @@
     "C:\\Users\\Owen\\.nuget\\packages\\system.runtime.extensions\\4.3.0\\system.runtime.extensions.4.3.0.nupkg.sha512",
     "C:\\Users\\Owen\\.nuget\\packages\\system.text.encoding\\4.3.0\\system.text.encoding.4.3.0.nupkg.sha512",
     "C:\\Users\\Owen\\.nuget\\packages\\system.threading.tasks\\4.3.0\\system.threading.tasks.4.3.0.nupkg.sha512",
-    "C:\\Users\\Owen\\.nuget\\packages\\yamldotnet\\16.3.0\\yamldotnet.16.3.0.nupkg.sha512"
+    "C:\\Users\\Owen\\.nuget\\packages\\yamldotnet\\13.0.0\\yamldotnet.13.0.0.nupkg.sha512"
   ],
   "logs": [
     {
@@ -45,6 +45,17 @@
       "warningLevel": 1,
       "filePath": "C:\\Users\\Owen\\Documents\\iRacingTelemetryTool\\IracingTelemetry\\IracingTelemetry.csproj",
       "libraryId": "System.Core",
+      "targetGraphs": [
+        "net9.0-windows7.0"
+      ]
+    },
+    {
+      "code": "NU1605",
+      "level": "Error",
+      "message": "Warning As Error: Detected package downgrade: YamlDotNet from 16.3.0 to 13.0.0. Reference the package directly from the project to select a different version. \r\n IracingTelemetry -> IRSDKSharper 1.1.4 -> YamlDotNet (>= 16.3.0) \r\n IracingTelemetry -> YamlDotNet (>= 13.0.0)",
+      "projectPath": "C:\\Users\\Owen\\Documents\\iRacingTelemetryTool\\IracingTelemetry\\IracingTelemetry.csproj",
+      "filePath": "C:\\Users\\Owen\\Documents\\iRacingTelemetryTool\\IracingTelemetry\\IracingTelemetry.csproj",
+      "libraryId": "YamlDotNet",
       "targetGraphs": [
         "net9.0-windows7.0"
       ]
