@@ -9,19 +9,35 @@
         "projectUniqueName": "C:\\Users\\Owen\\RiderProjects\\iRacingTelemetryTool\\iRacingSdkWrapper\\iRacingSdkWrapper\\iRacingSdkWrapper.csproj",
         "projectName": "iRacingSdkWrapper",
         "projectPath": "C:\\Users\\Owen\\RiderProjects\\iRacingTelemetryTool\\iRacingSdkWrapper\\iRacingSdkWrapper\\iRacingSdkWrapper.csproj",
+        "packagesPath": "C:\\Users\\Owen\\.nuget\\packages\\",
+        "projectStyle": "PackagesConfig",
         "UsingMicrosoftNETSdk": false,
+        "configFilePaths": [
+          "C:\\Users\\Owen\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
         "frameworks": {
-          "net48": {
+          "net451": {
             "projectReferences": {
               "C:\\Users\\Owen\\RiderProjects\\iRacingTelemetryTool\\iRacingSdkWrapper\\irsdkSharp\\iRSDKSharp.csproj": {
                 "projectPath": "C:\\Users\\Owen\\RiderProjects\\iRacingTelemetryTool\\iRacingSdkWrapper\\irsdkSharp\\iRSDKSharp.csproj"
               }
             }
           }
-        }
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low"
+        },
+        "packagesConfigPath": "C:\\Users\\Owen\\RiderProjects\\iRacingTelemetryTool\\iRacingSdkWrapper\\iRacingSdkWrapper\\packages.config"
       },
       "frameworks": {
-        "net48": {}
+        "net451": {}
       }
     },
     "C:\\Users\\Owen\\RiderProjects\\iRacingTelemetryTool\\iRacingSdkWrapper\\iRacingSimulator\\iRacingSimulator.csproj": {
@@ -31,7 +47,7 @@
         "projectPath": "C:\\Users\\Owen\\RiderProjects\\iRacingTelemetryTool\\iRacingSdkWrapper\\iRacingSimulator\\iRacingSimulator.csproj",
         "UsingMicrosoftNETSdk": false,
         "frameworks": {
-          "net48": {
+          "net451": {
             "projectReferences": {
               "C:\\Users\\Owen\\RiderProjects\\iRacingTelemetryTool\\iRacingSdkWrapper\\iRacingSdkWrapper\\iRacingSdkWrapper.csproj": {
                 "projectPath": "C:\\Users\\Owen\\RiderProjects\\iRacingTelemetryTool\\iRacingSdkWrapper\\iRacingSdkWrapper\\iRacingSdkWrapper.csproj"
@@ -41,7 +57,7 @@
         }
       },
       "frameworks": {
-        "net48": {}
+        "net451": {}
       }
     },
     "C:\\Users\\Owen\\RiderProjects\\iRacingTelemetryTool\\iRacingSdkWrapper\\irsdkSharp\\iRSDKSharp.csproj": {
@@ -51,13 +67,13 @@
         "projectPath": "C:\\Users\\Owen\\RiderProjects\\iRacingTelemetryTool\\iRacingSdkWrapper\\irsdkSharp\\iRSDKSharp.csproj",
         "UsingMicrosoftNETSdk": false,
         "frameworks": {
-          "net472": {
+          "net451": {
             "projectReferences": {}
           }
         }
       },
       "frameworks": {
-        "net472": {}
+        "net451": {}
       }
     },
     "C:\\Users\\Owen\\RiderProjects\\iRacingTelemetryTool\\IracingTelemetry\\IracingTelemetry.csproj": {
