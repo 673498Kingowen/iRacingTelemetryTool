@@ -1300,7 +1300,6 @@
       "IRSDKSharper >= 1.1.4",
       "System.Core >= 3.5.21022.801",
       "System.Linq >= 4.3.0",
-      "YamlDotNet >= 16.3.0",
       "iRSDKSharp >= 1.0.0",
       "iRacingSDK >= 1.18.6",
       "iRacingSdkWrapper >= 1.0.0",
@@ -1383,10 +1382,6 @@
           "System.Linq": {
             "target": "Package",
             "version": "[4.3.0, )"
-          },
-          "YamlDotNet": {
-            "target": "Package",
-            "version": "[16.3.0, )"
           },
           "iRacingSDK": {
             "target": "Package",
