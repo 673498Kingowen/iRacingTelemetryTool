@@ -9,19 +9,35 @@
         "projectUniqueName": "C:\\Users\\Owen\\Documents\\iRacingTelemetryTool\\iRacingSdkWrapper\\iRacingSdkWrapper\\iRacingSdkWrapper.csproj",
         "projectName": "iRacingSdkWrapper",
         "projectPath": "C:\\Users\\Owen\\Documents\\iRacingTelemetryTool\\iRacingSdkWrapper\\iRacingSdkWrapper\\iRacingSdkWrapper.csproj",
+        "packagesPath": "C:\\Users\\Owen\\.nuget\\packages\\",
+        "projectStyle": "PackagesConfig",
         "UsingMicrosoftNETSdk": false,
+        "configFilePaths": [
+          "C:\\Users\\Owen\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
         "frameworks": {
-          "net451": {
+          "net48": {
             "projectReferences": {
               "C:\\Users\\Owen\\Documents\\iRacingTelemetryTool\\iRacingSdkWrapper\\irsdkSharp\\iRSDKSharp.csproj": {
                 "projectPath": "C:\\Users\\Owen\\Documents\\iRacingTelemetryTool\\iRacingSdkWrapper\\irsdkSharp\\iRSDKSharp.csproj"
               }
             }
           }
-        }
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low"
+        },
+        "packagesConfigPath": "C:\\Users\\Owen\\Documents\\iRacingTelemetryTool\\iRacingSdkWrapper\\iRacingSdkWrapper\\packages.config"
       },
       "frameworks": {
-        "net451": {}
+        "net48": {}
       }
     },
     "C:\\Users\\Owen\\Documents\\iRacingTelemetryTool\\iRacingSdkWrapper\\iRacingSimulator\\iRacingSimulator.csproj": {
@@ -31,7 +47,7 @@
         "projectPath": "C:\\Users\\Owen\\Documents\\iRacingTelemetryTool\\iRacingSdkWrapper\\iRacingSimulator\\iRacingSimulator.csproj",
         "UsingMicrosoftNETSdk": false,
         "frameworks": {
-          "net451": {
+          "net48": {
             "projectReferences": {
               "C:\\Users\\Owen\\Documents\\iRacingTelemetryTool\\iRacingSdkWrapper\\iRacingSdkWrapper\\iRacingSdkWrapper.csproj": {
                 "projectPath": "C:\\Users\\Owen\\Documents\\iRacingTelemetryTool\\iRacingSdkWrapper\\iRacingSdkWrapper\\iRacingSdkWrapper.csproj"
@@ -41,7 +57,7 @@
         }
       },
       "frameworks": {
-        "net451": {}
+        "net48": {}
       }
     },
     "C:\\Users\\Owen\\Documents\\iRacingTelemetryTool\\iRacingSdkWrapper\\irsdkSharp\\iRSDKSharp.csproj": {
@@ -49,15 +65,31 @@
         "projectUniqueName": "C:\\Users\\Owen\\Documents\\iRacingTelemetryTool\\iRacingSdkWrapper\\irsdkSharp\\iRSDKSharp.csproj",
         "projectName": "iRSDKSharp",
         "projectPath": "C:\\Users\\Owen\\Documents\\iRacingTelemetryTool\\iRacingSdkWrapper\\irsdkSharp\\iRSDKSharp.csproj",
+        "packagesPath": "C:\\Users\\Owen\\.nuget\\packages\\",
+        "projectStyle": "PackagesConfig",
         "UsingMicrosoftNETSdk": false,
+        "configFilePaths": [
+          "C:\\Users\\Owen\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
         "frameworks": {
-          "net451": {
+          "net48": {
             "projectReferences": {}
           }
-        }
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low"
+        },
+        "packagesConfigPath": "C:\\Users\\Owen\\Documents\\iRacingTelemetryTool\\iRacingSdkWrapper\\irsdkSharp\\packages.config"
       },
       "frameworks": {
-        "net451": {}
+        "net48": {}
       }
     },
     "C:\\Users\\Owen\\Documents\\iRacingTelemetryTool\\IracingTelemetry\\IracingTelemetry.csproj": {
@@ -135,7 +167,7 @@
             },
             "YamlDotNet": {
               "target": "Package",
-              "version": "[13.0.0, )"
+              "version": "[16.3.0, )"
             },
             "iRacingSDK": {
               "target": "Package",
